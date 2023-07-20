@@ -221,7 +221,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3596514861021706793}
   - component: {fileID: 3596514861021706772}
-  - component: {fileID: 3596514861021706799}
   - component: {fileID: 3596514861021706796}
   - component: {fileID: 3596514861021706784}
   - component: {fileID: 3596514861021706785}
@@ -264,24 +263,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: c472008e2f6ed2f439833bf639878e00, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!210 &3596514861021706799
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3596514861021706774}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_Constraints: 0
 --- !u!82 &3596514861021706796
 AudioSource:
   m_ObjectHideFlags: 0
@@ -390,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 2
+  _interpolationDataSource: 0
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 8909149003367388172}
   InterpolateErrorCorrection: 1
@@ -429,6 +417,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3596514861021706784}
+  - {fileID: 318758304817297471}
   SimulationBehaviours: []
 --- !u!114 &318758304817297471
 MonoBehaviour:
@@ -442,7 +431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999e0445d98687845a0b39a61287d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitForce: 10
+  _interpolationDataSource: 0
+  hitForce: 1
   ballHitEffect: {fileID: 3596514861021706774}
   isApplyingForce: 0
   isHit: 0
@@ -455,7 +445,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 3596514861021706774}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c472008e2f6ed2f439833bf639878e00, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -471,6 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8909149003367388172}
+  - component: {fileID: 8947982370810693151}
   m_Layer: 0
   m_Name: Interpolation Target
   m_TagString: Untagged
@@ -495,6 +486,17 @@ Transform:
   m_Father: {fileID: 3596514861021706793}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &8947982370810693151
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273709491046156844}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &8409923401934641269
 GameObject:
   m_ObjectHideFlags: 0

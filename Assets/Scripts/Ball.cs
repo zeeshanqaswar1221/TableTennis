@@ -2,10 +2,11 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Collections;
+using Fusion;
 /*using Photon.Realtime;
 using Photon.Pun;
 using Photon;*/
-public class Ball : MonoBehaviour
+public class Ball : NetworkBehaviour
 {
     public float hitForce;
     Vector2 startingPosition;
@@ -16,8 +17,8 @@ public class Ball : MonoBehaviour
     private AudioSource ballHitSound;
     private TrailRenderer trailRenderer;
     private List<Coroutine> m_BallCorotine = new List<Coroutine>();
-    
-    private void Awake()
+
+    public override void Spawned()
     {
         ballHitEffect = transform.GetChild(0).gameObject;
         ballHitSound = GetComponent<AudioSource>();
@@ -25,12 +26,18 @@ public class Ball : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
+    public override void FixedUpdateNetwork()
+    {
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 15f);
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Master") || collision.gameObject.CompareTag("Client"))
         {
-            Vector3 dir = transform.position - collision.transform.position;
-            rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
+            //Vector3 dir = transform.position - collision.transform.position;
+            //rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
             //if (collision.gameObject.TryGetComponent<TennisMovement>(out TennisMovement tennisRacket))
             //{
             //    Vector3 dir = transform.position - collision.transform.position;

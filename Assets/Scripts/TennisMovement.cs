@@ -22,31 +22,31 @@ public class TennisMovement : NetworkBehaviour
     public GameObject paddleHitEffect;
     GameObject currentBall;
     Vector2 currentforce;
-    
-    private void OnEnable()
+
+    private Rigidbody2D m_Rigidbody;
+
+    public override void Spawned()
     {
+        startingPosition = transform.position;
+        m_Rigidbody = GetComponent<Rigidbody2D>();
         paddleHitEffect = transform.GetChild(0).gameObject;
         SetToDefaultPos();
-    }
-    
-    private void Awake()
-    {        
-        startingPosition = transform.position;
     }
 
 
     #region New Movement 
 
-    [Networked] public bool dragging { get; private set; }
+    public bool dragging = false;
     private Vector3 offset;
 
     // Update is called once per frame
-    void Update()
+    public override void FixedUpdateNetwork()
     {
         if (dragging)
         {
             // Move object, taking into account original offset.
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);
         }
     }
 

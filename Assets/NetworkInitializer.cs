@@ -37,6 +37,8 @@ public class NetworkInitializer : MonoBehaviour
         NetworkSceneManager = Runner.GetComponents(typeof(MonoBehaviour)).OfType<NetworkSceneManagerDefault>().FirstOrDefault();
         if (ReferenceEquals(NetworkSceneManager, null))
             NetworkSceneManager = Runner.gameObject.AddComponent<NetworkSceneManagerDefault>();
+        
+
 
         Runner.ProvideInput = true;
 
