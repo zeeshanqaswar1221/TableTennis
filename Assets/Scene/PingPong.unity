@@ -2848,7 +2848,7 @@ MonoBehaviour:
   clientBallPosition: {fileID: 287100772}
   scoreMaster: 0
   scoreClient: 0
-  gameBall: {fileID: 2171167336862001536, guid: 46aabe964223e4247a384cfef5d2453a, type: 3}
+  gameBall: {fileID: 3596514861021706774, guid: 10dac1aa0ee21a74b96a1eb1f4630304, type: 3}
 --- !u!1 &1719508840
 GameObject:
   m_ObjectHideFlags: 0
