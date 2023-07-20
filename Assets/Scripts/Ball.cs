@@ -8,6 +8,7 @@ using Photon.Pun;
 using Photon;*/
 public class Ball : NetworkBehaviour
 {
+    public DOTweenAnimation[] animations; 
     public float hitForce;
     Vector2 startingPosition;
     public GameObject ballHitEffect;
@@ -26,6 +27,14 @@ public class Ball : NetworkBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
+    public void BounceAnimation()
+    {
+        foreach (var item in animations)
+        {
+            item.DOPlay();
+        }
+    }
+
     public override void FixedUpdateNetwork()
     {
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, 15f);
@@ -34,52 +43,18 @@ public class Ball : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.CompareTag("Master"))
+        if (collision.gameObject.CompareTag("Paddle"))
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            BounceAnimation();
 
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
-                //Vector3 dir = transform.position - collision.transform.position;
-                rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Force);
-
-                //Vector3 dir = transform.position - collision.transform.position;
-
-                //if (tennisRacket.dragging)
-                //{
-                //    rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
-                //}
-                //else
-                //{
-                //    rb.AddForce(dir.normalized * (hitForce * 0.5f), ForceMode2D.Impulse);
-                //}
+                //rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Force);
             }
         }
 
-        if (collision.gameObject.CompareTag("Client"))
-        {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-
-            if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
-            {
-                //Vector3 dir = transform.position - collision.transform.position;
-                rb.AddForce(tennisRacket.directionPaddle * hitForce , ForceMode2D.Force);
-
-                //Vector3 dir = transform.position - collision.transform.position;
-
-                //if (tennisRacket.dragging)
-                //{
-                //    rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
-                //}
-                //else
-                //{
-                //    rb.AddForce(dir.normalized * (hitForce * 0.5f), ForceMode2D.Impulse);
-                //}
-            }
-        }
     }
 
     public void Bounce()
