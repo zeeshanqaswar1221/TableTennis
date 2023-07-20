@@ -50,8 +50,9 @@ public class TennisMovement : NetworkBehaviour
         {
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = (transform.localPosition - initalPos).normalized; 
-            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
+            paddleDragDirection = (transform.localPosition - initalPos).normalized;
+            Vector3 movement = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            m_Rigidbody.MovePosition(movement);// Movement
         }
     }
 

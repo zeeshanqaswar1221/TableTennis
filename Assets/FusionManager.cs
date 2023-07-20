@@ -26,26 +26,28 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
         if (Runner.IsSharedModeMasterClient)
             waitingScreen.SetActive(true);
 
-        if (Runner.IsSharedModeMasterClient)
-        {
-            Runner.Spawn(masterPrefab, PongGameController.Instance.masterTransform.position, Quaternion.identity, Runner.LocalPlayer);
-            NetworkObject ball = Runner.Spawn(PongGameController.Instance.gameBall, PongGameController.Instance.masterBallPosition.position, Quaternion.identity);
-            PongGameController.Instance.gameBall = ball.gameObject;
-        }
     }
 
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        if (!runner.IsServer)
+            return;
+
+        if (player == runner.LocalPlayer)
+        {
+            Runner.Spawn(masterPrefab, PongGameController.Instance.masterTransform.position, Quaternion.identity, Runner.LocalPlayer);
+            NetworkObject ball = Runner.Spawn(PongGameController.Instance.gameBall, PongGameController.Instance.masterBallPosition.position, Quaternion.identity);
+            PongGameController.Instance.gameBall = ball.gameObject;
+        }
+        else
+        {
+
+            runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
+        }
+
         if (runner.ActivePlayers.Count() == 2)
             waitingScreen.SetActive(false);
-
-        if (runner.IsSharedModeMasterClient)
-            return;
-        
-        runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
-
-        
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
