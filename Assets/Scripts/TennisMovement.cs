@@ -9,81 +9,76 @@ using Unity.VisualScripting;
 public class TennisMovement : NetworkBehaviour
 {
     public SpriteRenderer interpolator;
-    private bool isDragging; // Flag to indicate if the tennis is being dragged
-    private Vector2 touchOffset; // Offset between the touch position and the tennis object position
-    private Vector2 startingPosition;
-    private Vector2 touchStartPosition;
-    private float touchStartTime;
-    public float paddleHitSpeed;
-    public float hitForce = 12f;
 
-    private Vector2 initialPosition, finalPosition, directionPaddle;
-    private float paddleAngle;
-    public GameObject paddleHitEffect;
-    GameObject currentBall;
-    Vector2 currentforce;
+    public bool dragging = false;
+    private Vector3 offset;
+    private Vector3 m_InitalPos;
+
+    public int moveDirection = 0; // 1 means right -1 means left
 
     private Rigidbody2D m_Rigidbody;
+    public Vector3 paddleDragDirection { get; set; }
 
-    public enum MovementState { MovingRight, MovingLeft, NoMovement }
-
-    public MovementState MoveState = MovementState.NoMovement;
-
+    public float yDirectionParameter;
 
     public override void Spawned()
     {
-        startingPosition = transform.position;
-        paddleHitEffect = transform.GetChild(0).gameObject;
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+    }
 
+    private void Awake()
+    {
+        m_Rigidbody = GetComponent<Rigidbody2D>();
         paddleDragDirection = transform.forward;
+        yDirectionParameter = transform.position.y / Mathf.Abs(transform.position.y);
     }
 
 
     #region New Movement 
 
-    public bool dragging = false;
-    private Vector3 offset;
-
-    public Vector3 initalPos;
-    [Networked] public Vector3 paddleDragDirection { get; set; }
-
-
-    // Update is called once per frame
     public override void FixedUpdateNetwork()
     {
         if (dragging)
         {
             // Move object, taking into account original offset.
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = (transform.position - initalPos).normalized;
+            //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            paddleDragDirection = (transform.position - m_InitalPos).normalized;
 
-            CheckPedalDirection();
+            Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection);
+            moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
 
-            // m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
+            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
         }
     }
 
-    private void CheckPedalDirection()
+    private void FixedUpdate()
     {
-        Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection);
+        if (dragging)
+        {
+            // Move object, taking into account original offset.
+            //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            paddleDragDirection = (transform.position - m_InitalPos).normalized;
 
-        if (forDirection.z < 0)
-        {
-            MoveState = MovementState.MovingRight;
-        }
-        else if (forDirection.z > 0)
-        {
-            MoveState = MovementState.MovingLeft;
-        }
-        else
-        {
-            MoveState = MovementState.NoMovement;
+            Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection);
+            moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
+
+            Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            if (yDirectionParameter > 0)
+            {
+                newPos.y = Mathf.Clamp(newPos.y, 3, 1000);
+            }
+            else
+            {
+                newPos.y = Mathf.Clamp(newPos.y, -1000, -3);
+            }
+
+            m_Rigidbody.MovePosition(newPos);// Movement
         }
     }
 
     private void OnMouseDown()
     {
-        initalPos = transform.position;
+        m_InitalPos = transform.position;
         paddleDragDirection = transform.up.normalized;
 
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -93,25 +88,20 @@ public class TennisMovement : NetworkBehaviour
     private void OnDrawGizmos()
     {
 
-        if (initalPos != Vector3.zero)
+        if (m_InitalPos != Vector3.zero)
         {
             Gizmos.color = Color.blue;
             // Gizmos.DrawLine(initalPos, transform.position);
-            Gizmos.DrawRay(initalPos, paddleDragDirection);
+            Gizmos.DrawRay(m_InitalPos, paddleDragDirection);
         }
     }
 
     private void OnMouseUp()
     {
-        initalPos = Vector2.zero;
-        // Stop dragging.
-        dragging = false;
+        m_InitalPos = Vector2.zero;
+        dragging = false; // Stop dragging.
     }
 
-    public void Reset()
-    {
-        MoveState = MovementState.NoMovement;
-    }
 
     #endregion
 

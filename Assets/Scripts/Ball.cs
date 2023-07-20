@@ -4,42 +4,48 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
 using Fusion;
-using UnityEngine.XR;
 
-/*using Photon.Realtime;
-using Photon.Pun;
-using Photon;*/
 public class Ball : NetworkBehaviour
 {
     public DOTweenAnimation[] animations; 
-    Vector2 startingPosition;
+    
     public GameObject ballHitEffect;
     
     public Rigidbody2D rb { get; private set; }
     private AudioSource ballHitSound;
     private TrailRenderer trailRenderer;
-    private List<Coroutine> m_BallCorotine = new List<Coroutine>();
+
+    private Rigidbody2D m_Rigidbody;
+    
 
     [SerializeField] private SpriteRenderer[] ballVisuals;
-    
-    [SerializeField] private float translationSpeed = 10f;
-    [SerializeField] private float sideWaySpeed = 5f;
-    [SerializeField] private float swingStartTime;
-    
+
+    public float ballSpeed = 30f;
     
     [SerializeField] private Transform trackingObject;
 
-    private Coroutine swingCoroutineHandler;
-
-    private Stopwatch stopWatch;
-    
     public override void Spawned()
     {
+        m_Rigidbody = GetComponent<Rigidbody2D>();
         ballHitEffect = transform.GetChild(0).gameObject;
         ballHitSound = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         trailRenderer = GetComponent<TrailRenderer>();
+    }
 
+    private void Awake()
+    {
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+        ballHitEffect = transform.GetChild(0).gameObject;
+        ballHitSound = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D>();
+        trailRenderer = GetComponent<TrailRenderer>();
+    }
+
+
+    private void Start()
+    {
+        //m_Rigidbody.velocity = Vector2.up * ballSpeed;
     }
 
     public void BounceAnimation()
@@ -50,100 +56,69 @@ public class Ball : NetworkBehaviour
         }
     }
     
-    public void Toggle(bool status)
+    public override void FixedUpdateNetwork()
     {
-        foreach (var item in ballVisuals)
-        {
-            item.enabled = status;
-        }
     }
 
-    [Networked] TickTimer timer { get; set; }
-    public bool canSwing = false;
-    public bool canEnter = false;
-    
-    public override void FixedUpdateNetwork()
+    public bool canSwing = true;
+    private void FixedUpdate()
     {
         if (trackingObject != null)
         {
-            if (!canEnter)
+            if (canSwing && (int)Mathf.Abs(transform.position.y) == 2)
             {
-                swingCoroutineHandler = StartCoroutine(SwingEnableTIme());
-                canEnter = true;
+                canSwing = false;
+                ballHitSound.Play();
             }
-            
-            Vector3 finalDirection = trackingObject.up.normalized * translationSpeed;
-            
-            if (canSwing)
-            {
-                if (trackingObject.TryGetComponent(out TennisMovement tennis))
-                {
-                    if (tennis.MoveState == TennisMovement.MovementState.MovingRight)
-                    {
-                        finalDirection.x  = sideWaySpeed;
-                    }
-                    else if (tennis.MoveState == TennisMovement.MovementState.MovingLeft)
-                    {
-                        finalDirection.x  = -sideWaySpeed;
-                    }
-                }
-
-                tennis.MoveState = TennisMovement.MovementState.NoMovement;
-                StopCoroutine(swingCoroutineHandler);
-            }
-            
-            transform.Translate(finalDirection * Runner.DeltaTime, Space.World);
         }
-    }
-
-    IEnumerator SwingEnableTIme()
-    {
-        yield return new WaitForSeconds(0.5f);
-        print("Swing Enabled");
-        canSwing = true;
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Paddle"))
+        if (collision.gameObject.TryGetComponent(out TennisMovement racket))
         {
-            canSwing = false;
-            canEnter = false;
-            Reset();
-            BounceAnimation();
+            if (trackingObject == collision.transform) // means collided with same object so do nothing
+                return;
+
+
+            canSwing = true; 
             trackingObject = collision.transform;
+            m_Rigidbody.velocity = Vector2.zero;
+
+            float x = 0f;
+
+            // if racket is not moving we have to set x to zero
+            x = hitFactor(transform.position, racket.transform.position, collision.collider.bounds.size.x);
+            x = Mathf.Clamp(x, 0, 0.5f);
+
+            float y = racket.yDirectionParameter * -1;
+            Vector2 dir = new Vector2(x, y).normalized;
+            m_Rigidbody.velocity = dir * ballSpeed;
+
+            ballHitSound.Play();
+
+            //BounceAnimation();
         }
     }
 
-    public void Bounce()
+    float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketWidth)
     {
-        //m_BallCorotine.Clear();
-        //m_BallCorotine.Add(StartCoroutine(BallBounce()));
-        
-        //IEnumerator BallBounce()
-        //{
-        //    float delay = Random.Range(0.1f, 0.25f);
-        //    yield return new WaitForSeconds(delay);
-        //    //  IntiateHitEffect();
-        //    ballHitEffect.SetActive(true);
-        //    yield return new WaitWhile(() => ballHitSound.isPlaying);
-        //    ballHitSound.Play();
-        //}
+        return (ballPos.x - racketPos.x) / racketWidth;
     }
+
 
     public void Reset(Transform standingPosition = null)
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0f;
         trackingObject = null;
-        canSwing = false;
         
         // reset Trail Renderer
 
         if (standingPosition != null)
         {
-            Toggle(false);
+            ToggleBallVisuals(false);
             StartCoroutine(ResetPosition());
         }
 
@@ -151,7 +126,15 @@ public class Ball : NetworkBehaviour
         {
             yield return new WaitForEndOfFrame();
             transform.position = standingPosition.position;
-            Toggle(true);
+            ToggleBallVisuals(true);
+        }
+    }
+
+    private void ToggleBallVisuals(bool status)
+    {
+        foreach (var item in ballVisuals)
+        {
+            item.enabled = status;
         }
     }
 
