@@ -8,6 +8,7 @@ using Photon.Pun;
 using Photon;*/
 public class Ball : NetworkBehaviour
 {
+    public DOTweenAnimation[] animations; 
     public float hitForce;
     Vector2 startingPosition;
     public GameObject ballHitEffect;
@@ -26,6 +27,14 @@ public class Ball : NetworkBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
+    public void BounceAnimation()
+    {
+        foreach (var item in animations)
+        {
+            item.DOPlay();
+        }
+    }
+
     public override void FixedUpdateNetwork()
     {
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, 15f);
@@ -38,11 +47,10 @@ public class Ball : NetworkBehaviour
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            BounceAnimation();
 
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
-                rb.velocity = Vector2.zero;
-                rb.angularVelocity = 0f;
                 //rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Force);
             }
         }
