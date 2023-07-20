@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 2130231359279943999}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.49867207, y: 0.49867207, z: 0.49867207}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8909149003367388172}
   m_RootOrder: 0
@@ -94,7 +94,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130231359279943999}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -258,34 +258,61 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.5
-  easeType: 4
+  duration: 2
+  easeType: 37
   easeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: -0.0022621155
+      value: 1.0023499
+      inSlope: 1.2952926
+      outSlope: 1.2952926
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33756164
+    - serializedVersion: 3
+      time: 0.10185872
+      value: 1.0957866
+      inSlope: 0.013254786
+      outSlope: 0.013254786
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14341052
+    - serializedVersion: 3
+      time: 0.49883747
+      value: 0.5013726
+      inSlope: -0.019182606
+      outSlope: -0.019182606
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24152406
+    - serializedVersion: 3
+      time: 0.900382
+      value: 1.0986478
+      inSlope: -0.011504949
+      outSlope: -0.011504949
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.57713664
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.5171793
+      outSlope: -1.5171793
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.30729493
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  loopType: 1
-  loops: 2
+  loopType: 0
+  loops: 1
   id: 
   isRelative: 0
   isFrom: 0
@@ -297,9 +324,9 @@ MonoBehaviour:
   animationType: 5
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
-  endValueFloat: 0.3
+  endValueFloat: 0.5
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
@@ -328,10 +355,10 @@ GameObject:
   - component: {fileID: 3596514861021706793}
   - component: {fileID: 3596514861021706772}
   - component: {fileID: 3596514861021706796}
-  - component: {fileID: 3596514861021706784}
   - component: {fileID: 3596514861021706785}
   - component: {fileID: 318758304817297471}
   - component: {fileID: 8382372122801792589}
+  - component: {fileID: 468532629261961222}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -374,8 +401,8 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: c472008e2f6ed2f439833bf639878e00, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!82 &3596514861021706796
 AudioSource:
   m_ObjectHideFlags: 0
@@ -472,34 +499,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3596514861021706784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3596514861021706774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 8909149003367388172}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
-  UseLegacySharedModeInterpolation: 0
-  TargetInterpolationDelay: 0.03
 --- !u!114 &3596514861021706785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,8 +521,8 @@ MonoBehaviour:
     RawGuidValue: 10dac1aa0ee21a74b96a1eb1f4630304
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 3596514861021706784}
   - {fileID: 318758304817297471}
+  - {fileID: 468532629261961222}
   SimulationBehaviours: []
 --- !u!114 &318758304817297471
 MonoBehaviour:
@@ -541,10 +540,14 @@ MonoBehaviour:
   animations:
   - {fileID: 6490824077468441733}
   - {fileID: 321938774453156904}
-  hitForce: 5
   ballHitEffect: {fileID: 3596514861021706774}
-  isApplyingForce: 0
-  isHit: 0
+  ballVisuals:
+  - {fileID: 9171909830272709796}
+  - {fileID: 8409923401934641779}
+  translationSpeed: 15
+  trackingObject: {fileID: 0}
+  swingStartTime: 0
+  swingDoneOnce: 0
 --- !u!58 &8382372122801792589
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -561,6 +564,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &468532629261961222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3596514861021706774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 8909149003367388172}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03
 --- !u!1 &8273709491046156844
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +665,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.045, y: -0.03, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8909149003367388172}
   m_RootOrder: 1
@@ -737,34 +768,61 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.5
-  easeType: 4
+  duration: 2
+  easeType: 37
   easeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: -0.0022621155
+      value: 1.0023499
+      inSlope: 1.2952926
+      outSlope: 1.2952926
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33756164
+    - serializedVersion: 3
+      time: 0.10185872
+      value: 1.0957866
+      inSlope: 0.013254786
+      outSlope: 0.013254786
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14341052
+    - serializedVersion: 3
+      time: 0.49883747
+      value: 0.5013726
+      inSlope: -0.019182606
+      outSlope: -0.019182606
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24152406
+    - serializedVersion: 3
+      time: 0.900382
+      value: 1.0986478
+      inSlope: -0.011504949
+      outSlope: -0.011504949
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.57713664
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.5171793
+      outSlope: -1.5171793
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.30729493
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  loopType: 1
-  loops: 2
+  loopType: 0
+  loops: 1
   id: 
   isRelative: 0
   isFrom: 0
@@ -772,13 +830,13 @@ MonoBehaviour:
   autoKill: 0
   isActive: 1
   isValid: 1
-  target: {fileID: 8409923401934642047}
+  target: {fileID: 2130231359279943996}
   animationType: 5
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
-  endValueFloat: 0.3
+  endValueFloat: 0.5
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}

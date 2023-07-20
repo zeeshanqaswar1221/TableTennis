@@ -1199,11 +1199,7 @@ GameObject:
   - component: {fileID: 9019280568633809066}
   - component: {fileID: 9019280568633809068}
   - component: {fileID: 5124047238542398287}
-  - component: {fileID: 4659546717412837315}
-  - component: {fileID: 4101934487615182995}
-  - component: {fileID: 2084125956439951045}
-  - component: {fileID: 8044857171517206196}
-  - component: {fileID: 793713506638705849}
+  - component: {fileID: 7002533677466796489}
   m_Layer: 6
   m_Name: MasterPaddle
   m_TagString: Paddle
@@ -1343,7 +1339,7 @@ MonoBehaviour:
   paddleHitEffect: {fileID: 0}
   dragging: 0
   initalPos: {x: 0, y: 0, z: 0}
-  paddleDragDirection: {x: 0, y: 0}
+  _paddleDragDirection: {x: 0, y: 0, z: 1}
 --- !u!114 &5124047238542398287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1367,58 +1363,8 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 9019280568633809068}
-  - {fileID: 4101934487615182995}
   SimulationBehaviours: []
---- !u!50 &4659546717412837315
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019280568633809063}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 50
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 09d29d627dce7f94d9cc0f61000cf759, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!114 &4101934487615182995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019280568633809063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 3215467047041139598}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
-  UseLegacySharedModeInterpolation: 1
-  TargetInterpolationDelay: 0.03
---- !u!61 &2084125956439951045
+--- !u!61 &7002533677466796489
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1430,8 +1376,8 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: -0.024009824, y: -1.0872996}
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.010778904, y: 0.5461332}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1442,116 +1388,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4717853, y: 1.3910165}
+  m_Size: {x: 1.7257822, y: 1.3018104}
   m_EdgeRadius: 0
---- !u!60 &8044857171517206196
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019280568633809063}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0.4}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.8738544, y: 0.90524876}
-      - {x: 0.5136504, y: 1.253841}
-      - {x: 0, y: 1.3429968}
-      - {x: -0.48899698, y: 1.2397333}
-      - {x: -0.8699212, y: 0.9019958}
-      - {x: -1.0676751, y: 0.31587675}
-      - {x: -1.0674834, y: -0.18475404}
-      - {x: -0.88821316, y: -0.61980736}
-      - {x: -0.5740656, y: -0.86389625}
-      - {x: 0.635805, y: -0.8570368}
-      - {x: 0.9986465, y: -0.3724536}
-      - {x: 1.0813954, y: 0.28843734}
---- !u!66 &793713506638705849
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019280568633809063}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 2084125956439951045}
-    m_ColliderPaths:
-    - - X: 2118828
-        Y: -3917913
-      - X: -2599024
-        Y: -3917913
-      - X: -2599024
-        Y: -17828078
-      - X: 2118828
-        Y: -17828078
-  - m_Collider: {fileID: 8044857171517206196}
-    m_ColliderPaths:
-    - - X: 8738544
-        Y: 13052487
-      - X: 5136504
-        Y: 16538410
-      - X: 0
-        Y: 17429968
-      - X: -4889970
-        Y: 16397333
-      - X: -8699212
-        Y: 13019958
-      - X: -10676751
-        Y: 7158767
-      - X: -10674834
-        Y: 2152459
-      - X: -8882132
-        Y: -2198073
-      - X: -5740656
-        Y: -4638962
-      - X: 6358050
-        Y: -4570368
-      - X: 9986465
-        Y: 275464
-      - X: 10813954
-        Y: 6884373
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 0.2118535, y: -1.7828078}
-      - {x: 0.2119119, y: -0.45944}
-      - {x: 0.635813, y: -0.4570263}
-      - {x: 0.9986474, y: 0.027553}
-      - {x: 1.0813936, y: 0.6884427}
-      - {x: 0.8738499, y: 1.3052531}
-      - {x: 0.5136427, y: 1.6538424}
-      - {x: -0.0000047, y: 1.7429959}
-      - {x: -0.48900202, y: 1.6397289}
-      - {x: -0.8699233, y: 1.3019897}
-      - {x: -1.0676751, y: 0.7158725}
-      - {x: -1.0674815, y: 0.2152414}
-      - {x: -0.8882078, y: -0.2198115}
-      - {x: -0.5740566, y: -0.4638961}
-      - {x: -0.25990242, y: -0.4621445}
-      - {x: -0.2598731, y: -1.7828078}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
