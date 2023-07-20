@@ -36,21 +36,24 @@ public class Ball : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Master") || collision.gameObject.CompareTag("Client"))
         {
-            //Vector3 dir = transform.position - collision.transform.position;
-            //rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
-            //if (collision.gameObject.TryGetComponent<TennisMovement>(out TennisMovement tennisRacket))
-            //{
-            //    Vector3 dir = transform.position - collision.transform.position;
+            rb.velocity = Vector2.zero;
+            if (collision.gameObject.TryGetComponent<TennisMovement>(out TennisMovement tennisRacket))
+            {
 
-            //    if (tennisRacket.dragging)
-            //    {
-            //        rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
-            //    }
-            //    else
-            //    {
-            //        rb.AddForce(dir.normalized * (hitForce * 0.5f), ForceMode2D.Impulse);
-            //    }
-            //}
+                //Vector3 dir = transform.position - collision.transform.position;
+                //rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
+
+                //Vector3 dir = transform.position - collision.transform.position;
+
+                //if (tennisRacket.dragging)
+                //{
+                //    rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
+                //}
+                //else
+                //{
+                //    rb.AddForce(dir.normalized * (hitForce * 0.5f), ForceMode2D.Impulse);
+                //}
+            }
         }
     }
 
