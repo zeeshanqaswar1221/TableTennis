@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 4767599240123118296}
   m_Layer: 0
   m_Name: ClientPaddle
-  m_TagString: Client
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1342,6 +1342,8 @@ MonoBehaviour:
   hitForce: -10
   paddleHitEffect: {fileID: 0}
   dragging: 0
+  initalPos: {x: 0, y: 0, z: 0}
+  paddleDragDirection: {x: 0, y: 0}
 --- !u!114 &384656515083673704
 MonoBehaviour:
   m_ObjectHideFlags: 0

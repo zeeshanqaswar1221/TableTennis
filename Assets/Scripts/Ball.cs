@@ -34,7 +34,7 @@ public class Ball : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Master") || collision.gameObject.CompareTag("Client"))
+        if (collision.gameObject.CompareTag("Paddle"))
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
