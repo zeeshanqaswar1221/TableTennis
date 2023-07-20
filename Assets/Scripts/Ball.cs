@@ -51,7 +51,7 @@ public class Ball : NetworkBehaviour
 
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
-                //rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Force);
+                rb.AddForce(tennisRacket.paddleDragDirection * hitForce, ForceMode2D.Force);
             }
         }
 

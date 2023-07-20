@@ -40,7 +40,7 @@ public class TennisMovement : NetworkBehaviour
     private Vector3 offset;
 
     public Vector3 initalPos;
-    public Vector2 paddleDragDirection;
+    [Networked] public Vector2 paddleDragDirection { get; set; }
 
 
     // Update is called once per frame
@@ -50,8 +50,8 @@ public class TennisMovement : NetworkBehaviour
         {
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = (transform.localPosition - initalPos).normalized;
-            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);
+            paddleDragDirection = (transform.localPosition - initalPos).normalized; 
+            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
         }
     }
 
