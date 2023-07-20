@@ -43,7 +43,7 @@ public class Ball : NetworkBehaviour
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
                 //Vector3 dir = transform.position - collision.transform.position;
-                rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Impulse);
+                rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Force);
 
                 //Vector3 dir = transform.position - collision.transform.position;
 
@@ -66,7 +66,7 @@ public class Ball : NetworkBehaviour
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
                 //Vector3 dir = transform.position - collision.transform.position;
-                rb.AddForce(tennisRacket.directionPaddle * hitForce * -1, ForceMode2D.Impulse);
+                rb.AddForce(tennisRacket.directionPaddle * hitForce , ForceMode2D.Force);
 
                 //Vector3 dir = transform.position - collision.transform.position;
 

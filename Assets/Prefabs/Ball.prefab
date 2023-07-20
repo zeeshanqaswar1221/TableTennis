@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  hitForce: 1
+  hitForce: 5
   ballHitEffect: {fileID: 3596514861021706774}
   isApplyingForce: 0
   isHit: 0
