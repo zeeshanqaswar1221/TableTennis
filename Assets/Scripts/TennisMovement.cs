@@ -17,7 +17,7 @@ public class TennisMovement : NetworkBehaviour
     public float paddleHitSpeed;
     public float hitForce = 12f;
 
-    public Vector2 initialPosition, finalPosition, directionPaddle;
+    private Vector2 initialPosition, finalPosition, directionPaddle;
     private float paddleAngle;
     public GameObject paddleHitEffect;
     GameObject currentBall;
@@ -39,6 +39,10 @@ public class TennisMovement : NetworkBehaviour
     public bool dragging = false;
     private Vector3 offset;
 
+    public Vector3 initalPos;
+    public Vector2 paddleDragDirection;
+
+
     // Update is called once per frame
     public override void FixedUpdateNetwork()
     {
@@ -46,12 +50,14 @@ public class TennisMovement : NetworkBehaviour
         {
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            paddleDragDirection = (transform.localPosition - initalPos).normalized;
             m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);
         }
     }
 
     private void OnMouseDown()
     {
+        initalPos = transform.localPosition;
         // Record the difference between the objects centre, and the clicked point on the camera plane.
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragging = true;
@@ -59,9 +65,11 @@ public class TennisMovement : NetworkBehaviour
 
     private void OnMouseUp()
     {
+        initalPos = Vector2.zero;
         // Stop dragging.
         dragging = false;
     }
+
 
     #endregion
 
