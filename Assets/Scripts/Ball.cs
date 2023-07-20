@@ -34,11 +34,12 @@ public class Ball : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0f;
 
         if (collision.gameObject.CompareTag("Master"))
         {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
                 //Vector3 dir = transform.position - collision.transform.position;
@@ -59,6 +60,9 @@ public class Ball : NetworkBehaviour
 
         if (collision.gameObject.CompareTag("Client"))
         {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
             if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
                 //Vector3 dir = transform.position - collision.transform.position;
