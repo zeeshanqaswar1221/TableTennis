@@ -34,14 +34,35 @@ public class Ball : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Master") || collision.gameObject.CompareTag("Client"))
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        if (collision.gameObject.CompareTag("Master"))
         {
-            rb.velocity = Vector2.zero;
-            if (collision.gameObject.TryGetComponent<TennisMovement>(out TennisMovement tennisRacket))
+            if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
             {
+                //Vector3 dir = transform.position - collision.transform.position;
+                rb.AddForce(tennisRacket.directionPaddle * hitForce, ForceMode2D.Impulse);
 
                 //Vector3 dir = transform.position - collision.transform.position;
-                //rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
+
+                //if (tennisRacket.dragging)
+                //{
+                //    rb.AddForce(dir.normalized * hitForce, ForceMode2D.Impulse);
+                //}
+                //else
+                //{
+                //    rb.AddForce(dir.normalized * (hitForce * 0.5f), ForceMode2D.Impulse);
+                //}
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Client"))
+        {
+            if (collision.gameObject.TryGetComponent(out TennisMovement tennisRacket))
+            {
+                //Vector3 dir = transform.position - collision.transform.position;
+                rb.AddForce(tennisRacket.directionPaddle * hitForce * -1, ForceMode2D.Impulse);
 
                 //Vector3 dir = transform.position - collision.transform.position;
 

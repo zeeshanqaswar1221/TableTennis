@@ -17,7 +17,7 @@ public class TennisMovement : NetworkBehaviour
     public float paddleHitSpeed;
     public float hitForce = 12f;
 
-    private Vector2 initialPosition, finalPosition, directionPaddle;
+    public Vector2 initialPosition, finalPosition, directionPaddle;
     private float paddleAngle;
     public GameObject paddleHitEffect;
     GameObject currentBall;
@@ -182,7 +182,7 @@ public class TennisMovement : NetworkBehaviour
         
         Rigidbody2D ball = PongGameController.Instance.gameBall.GetComponent<Rigidbody2D>();
 
-        once = true;
+        once = true; 
         //ball.velocity = Vector2.zero;
 
         //if (transform.position.x > 2.3)
