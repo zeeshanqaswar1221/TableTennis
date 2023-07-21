@@ -1161,7 +1161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3596514861021706793, guid: 10dac1aa0ee21a74b96a1eb1f4630304, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3596514861021706793, guid: 10dac1aa0ee21a74b96a1eb1f4630304, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1601,6 +1601,10 @@ PrefabInstance:
     - target: {fileID: 9019280568633809063, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
       propertyPath: m_Name
       value: MasterPaddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019280568633809068, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
+      propertyPath: minDragRadius
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
@@ -2816,6 +2820,10 @@ PrefabInstance:
     - target: {fileID: 9019280568633809063, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}
       propertyPath: m_Name
       value: ClientPaddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019280568633809068, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}
+      propertyPath: minDragRadius
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}

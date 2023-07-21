@@ -34,18 +34,27 @@ public class TennisMovement : NetworkBehaviour
     }
 
 
-    #region New Movement 
+    #region New Movement
 
+    public float minDragRadius = 1f;
     public override void FixedUpdateNetwork()
     {
         if (dragging)
         {
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = (transform.position - m_InitalPos).normalized;
-
-            Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection);
-            moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
+            paddleDragDirection = transform.position - m_InitalPos;
+            print(paddleDragDirection.magnitude);
+            if (paddleDragDirection.magnitude > minDragRadius)
+            {
+                Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection.normalized);
+                moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
+            }
+            else
+            {
+                moveDirection = 0;
+            }
+            
 
             m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
         }
@@ -57,10 +66,17 @@ public class TennisMovement : NetworkBehaviour
         {
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = (transform.position - m_InitalPos).normalized;
-
-            Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection);
-            moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
+            paddleDragDirection = transform.position - m_InitalPos;
+            print(paddleDragDirection.magnitude);
+            if (paddleDragDirection.magnitude > minDragRadius)
+            {
+                Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection.normalized);
+                moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
+            }
+            else
+            {
+                moveDirection = 0;
+            }
 
             Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
             if (yDirectionParameter > 0)
@@ -78,6 +94,7 @@ public class TennisMovement : NetworkBehaviour
 
     private void OnMouseDown()
     {
+        moveDirection = 0;
         m_InitalPos = transform.position;
         paddleDragDirection = transform.up.normalized;
 
@@ -98,6 +115,7 @@ public class TennisMovement : NetworkBehaviour
 
     private void OnMouseUp()
     {
+        moveDirection = 0;
         m_InitalPos = Vector2.zero;
         dragging = false; // Stop dragging.
     }

@@ -3,25 +3,26 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
+using DG.Tweening.Core;
 using Fusion;
 
 public class Ball : NetworkBehaviour
 {
-    public DOTweenAnimation[] animations; 
-    
+    public DOTweenAnimation[] animations;
+
     public GameObject ballHitEffect;
-    
+
     public Rigidbody2D rb { get; private set; }
     private AudioSource ballHitSound;
     private TrailRenderer trailRenderer;
 
     private Rigidbody2D m_Rigidbody;
-    
+
 
     [SerializeField] private SpriteRenderer[] ballVisuals;
 
     public float ballSpeed = 30f;
-    
+
     [SerializeField] private Transform trackingObject;
 
     public override void Spawned()
@@ -55,7 +56,7 @@ public class Ball : NetworkBehaviour
             item.DOPlay();
         }
     }
-    
+
     public override void FixedUpdateNetwork()
     {
     }
@@ -65,16 +66,36 @@ public class Ball : NetworkBehaviour
     {
         // Limit Velocity
         if (m_Rigidbody.velocity.magnitude > ballSpeed)
-        {
             m_Rigidbody.velocity = Vector3.ClampMagnitude(m_Rigidbody.velocity, ballSpeed);
-        }
 
         if (trackingObject != null)
         {
-            if (canSwing && (int)Mathf.Abs(transform.position.y) == 2)
+            // if (canSwing && (int)Mathf.Abs(transform.position.y) == 2)
+            // {
+            //     canSwing = false;
+            //     ballHitSound.Play();
+            // }
+
+            if (!canSwing)
+                return;
+            var tennisMovement = trackingObject.GetComponent<TennisMovement>();
+            switch (tennisMovement.yDirectionParameter)
             {
-                canSwing = false;
-                ballHitSound.Play();
+                case 1:
+                    if (transform.position.y > 0 && transform.position.y < 1.5)
+                    {
+
+                        m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
+                        tennisMovement.moveDirection = 0;
+                    }
+                    break;
+                case -1:
+                    if (transform.position.y < 0 && transform.position.y > -1.5)
+                    {
+                        m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
+                        tennisMovement.moveDirection = 0;
+                    }
+                    break;
             }
         }
     }
@@ -87,8 +108,7 @@ public class Ball : NetworkBehaviour
             if (trackingObject == collision.transform) // means collided with same object so do nothing
                 return;
 
-
-            canSwing = true; 
+            canSwing = true;
             trackingObject = collision.transform;
             m_Rigidbody.velocity = Vector2.zero;
 
@@ -96,13 +116,14 @@ public class Ball : NetworkBehaviour
 
             // if racket is not moving we have to set x to zero
             x = hitFactor(transform.position, racket.transform.position, collision.collider.bounds.size.x);
+            x = Mathf.Clamp(x, 0, 0.5f);
 
             float y = racket.yDirectionParameter * -1;
             Vector2 dir = new Vector2(x, y).normalized;
             m_Rigidbody.velocity = dir * ballSpeed;
 
             ballHitSound.Play();
-
+            racket.moveDirection = 0;
             //BounceAnimation();
         }
     }
@@ -112,13 +133,13 @@ public class Ball : NetworkBehaviour
         return (ballPos.x - racketPos.x) / racketWidth;
     }
 
-
     public void Reset(Transform standingPosition = null)
     {
+        canSwing = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0f;
         trackingObject = null;
-        
+
         // reset Trail Renderer
 
         if (standingPosition != null)
