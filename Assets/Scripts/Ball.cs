@@ -76,27 +76,27 @@ public class Ball : NetworkBehaviour
             //     ballHitSound.Play();
             // }
 
-            if (!canSwing)
-                return;
-            var tennisMovement = trackingObject.GetComponent<TennisMovement>();
-            switch (tennisMovement.yDirectionParameter)
-            {
-                case 1:
-                    if (transform.position.y > 0 && transform.position.y < 1.5)
-                    {
+            //if (!canSwing)
+            //    return;
+            //var tennisMovement = trackingObject.GetComponent<TennisMovement>();
+            //switch (tennisMovement.yDirectionParameter)
+            //{
+            //    case 1:
+            //        if (transform.position.y > 0 && transform.position.y < 1.5)
+            //        {
 
-                        m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
-                        tennisMovement.moveDirection = 0;
-                    }
-                    break;
-                case -1:
-                    if (transform.position.y < 0 && transform.position.y > -1.5)
-                    {
-                        m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
-                        tennisMovement.moveDirection = 0;
-                    }
-                    break;
-            }
+            //            m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
+            //            tennisMovement.moveDirection = 0;
+            //        }
+            //        break;
+            //    case -1:
+            //        if (transform.position.y < 0 && transform.position.y > -1.5)
+            //        {
+            //            m_Rigidbody.velocity += new Vector2(tennisMovement.moveDirection, 0);
+            //            tennisMovement.moveDirection = 0;
+            //        }
+            //        break;
+            //}
         }
     }
 
