@@ -51,10 +51,10 @@ public class Ball : NetworkBehaviour
 
     public void BounceAnimation()
     {
-        foreach (var item in animations)
-        {
-            item.DOPlay();
-        }
+        // foreach (var item in animations)
+        // {
+        //     item.DOPlay();
+        // }
     }
 
     public override void FixedUpdateNetwork()
