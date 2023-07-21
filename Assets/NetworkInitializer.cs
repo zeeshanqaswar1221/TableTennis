@@ -22,7 +22,7 @@ public class NetworkInitializer : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
-        InitializeNetwork(GameMode.Shared, GAMESCENE);
+        InitializeNetwork(GameMode.AutoHostOrClient, GAMESCENE);
     }
 
     private async Task<StartGameResult> InitializeNetwork(GameMode gameMode, SceneRef gameScene)

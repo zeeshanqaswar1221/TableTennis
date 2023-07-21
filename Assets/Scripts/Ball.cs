@@ -122,7 +122,7 @@ public class Ball : NetworkBehaviour
 
             // if racket is not moving we have to set x to zero
             x = hitFactor(transform.position, racket.transform.position, collision.collider.bounds.size.x);
-            x = Mathf.Clamp(x, 0, 0.5f);
+            x = Mathf.Clamp(x, -0.5f, 0.5f);
 
             float y = racket.yDirectionParameter * -1;
             Vector2 dir = new Vector2(x, y).normalized;

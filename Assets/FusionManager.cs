@@ -10,6 +10,7 @@ using System.Linq;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
+    public static event Action<NetworkRunner, NetworkInput> OnInputCallBack;
     public GameObject waitingScreen;
     
     private NetworkObject currentObject;
@@ -23,28 +24,29 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
         
         Instance = this;
 
-        if (Runner.IsSharedModeMasterClient)
+        if (Runner.IsServer)
             waitingScreen.SetActive(true);
-
-        if (Runner.IsSharedModeMasterClient)
-        {
-            Runner.Spawn(masterPrefab, PongGameController.Instance.masterTransform.position, Quaternion.identity, Runner.LocalPlayer);
-            NetworkObject ball = Runner.Spawn(PongGameController.Instance.gameBall, PongGameController.Instance.masterBallPosition.position, Quaternion.identity);
-            PongGameController.Instance.gameBall = ball.gameObject;
-        }
 
     }
 
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        if(!Runner.IsServer)
+            return;
         if (runner.ActivePlayers.Count() == 2)
             waitingScreen.SetActive(false);
 
-        if (runner.IsSharedModeMasterClient)
-            return;
-
-        runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
+        if (Runner.LocalPlayer==player)
+        {
+            Runner.Spawn(masterPrefab, PongGameController.Instance.masterTransform.position, Quaternion.identity, Runner.LocalPlayer);
+            NetworkObject ball = Runner.Spawn(PongGameController.Instance.gameBall, PongGameController.Instance.masterBallPosition.position, Quaternion.identity);
+            PongGameController.Instance.gameBall = ball.gameObject;
+        }
+        else
+        {
+            runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
+        }
 
     }
 
@@ -54,6 +56,7 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
+        
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
