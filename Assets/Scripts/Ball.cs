@@ -63,6 +63,12 @@ public class Ball : NetworkBehaviour
     public bool canSwing = true;
     private void FixedUpdate()
     {
+        // Limit Velocity
+        if (m_Rigidbody.velocity.magnitude > ballSpeed)
+        {
+            m_Rigidbody.velocity = Vector3.ClampMagnitude(m_Rigidbody.velocity, ballSpeed);
+        }
+
         if (trackingObject != null)
         {
             if (canSwing && (int)Mathf.Abs(transform.position.y) == 2)
@@ -90,7 +96,6 @@ public class Ball : NetworkBehaviour
 
             // if racket is not moving we have to set x to zero
             x = hitFactor(transform.position, racket.transform.position, collision.collider.bounds.size.x);
-            x = Mathf.Clamp(x, 0, 0.5f);
 
             float y = racket.yDirectionParameter * -1;
             Vector2 dir = new Vector2(x, y).normalized;
