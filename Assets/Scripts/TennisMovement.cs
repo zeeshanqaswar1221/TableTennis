@@ -24,13 +24,15 @@ public class TennisMovement : NetworkBehaviour
     public override void Spawned()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        paddleDragDirection = transform.forward;
+        yDirectionParameter = transform.position.y / Mathf.Abs(transform.position.y);
     }
 
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody2D>();
-        paddleDragDirection = transform.forward;
-        yDirectionParameter = transform.position.y / Mathf.Abs(transform.position.y);
+        //m_Rigidbody = GetComponent<Rigidbody2D>();
+        //paddleDragDirection = transform.forward;
+        //yDirectionParameter = transform.position.y / Mathf.Abs(transform.position.y);
     }
 
 
@@ -39,27 +41,15 @@ public class TennisMovement : NetworkBehaviour
     public float minDragRadius = 1f;
     public override void FixedUpdateNetwork()
     {
-        if (dragging)
-        {
-            // Move object, taking into account original offset.
-            //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            paddleDragDirection = transform.position - m_InitalPos;
-            if (paddleDragDirection.magnitude > minDragRadius)
-            {
-                Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection.normalized);
-                moveDirection = forDirection.z < 0 ? 1 : forDirection.z > 0 ? -1 : 0;
-            }
-            else
-            {
-                moveDirection = 0;
-            }
-            
-
-            m_Rigidbody.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset);// Movement
-        }
+        TennisController();
     }
 
     private void FixedUpdate()
+    {
+        //TennisController();
+    }
+
+    private void TennisController()
     {
         if (dragging)
         {

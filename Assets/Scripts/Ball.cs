@@ -59,10 +59,16 @@ public class Ball : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        BallController();
     }
 
     public bool canSwing = true;
     private void FixedUpdate()
+    {
+        //BallController();
+    }
+
+    private void BallController()
     {
         // Limit Velocity
         if (m_Rigidbody.velocity.magnitude > ballSpeed)

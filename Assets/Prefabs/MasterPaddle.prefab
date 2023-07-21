@@ -1242,6 +1242,7 @@ MonoBehaviour:
   dragging: 0
   moveDirection: 0
   yDirectionParameter: 0
+  minDragRadius: 1
 --- !u!114 &5124047238542398287
 MonoBehaviour:
   m_ObjectHideFlags: 0
