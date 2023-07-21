@@ -44,7 +44,6 @@ public class TennisMovement : NetworkBehaviour
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
             paddleDragDirection = transform.position - m_InitalPos;
-            print(paddleDragDirection.magnitude);
             if (paddleDragDirection.magnitude > minDragRadius)
             {
                 Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection.normalized);
@@ -67,7 +66,7 @@ public class TennisMovement : NetworkBehaviour
             // Move object, taking into account original offset.
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
             paddleDragDirection = transform.position - m_InitalPos;
-            print(paddleDragDirection.magnitude);
+            //print(paddleDragDirection.magnitude);
             if (paddleDragDirection.magnitude > minDragRadius)
             {
                 Vector3 forDirection = Vector3.Cross(Vector3.up, paddleDragDirection.normalized);

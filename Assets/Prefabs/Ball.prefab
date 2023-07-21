@@ -93,7 +93,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130231359279943999}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -404,9 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  animations:
-  - {fileID: 0}
-  - {fileID: 0}
+  animations: []
   ballHitEffect: {fileID: 3596514861021706774}
   ballVisuals:
   - {fileID: 9171909830272709796}
@@ -468,6 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8909149003367388172}
   - component: {fileID: 6307956326373663082}
+  - component: {fileID: 1537404840682635748}
   m_Layer: 0
   m_Name: Interpolation Target
   m_TagString: Untagged
@@ -499,7 +498,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273709491046156844}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
   m_Name: 
@@ -604,7 +603,7 @@ MonoBehaviour:
   animationType: 5
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0.5
   endValueV3: {x: 0, y: 0, z: 0}
@@ -624,6 +623,17 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!210 &1537404840682635748
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273709491046156844}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &8409923401934641269
 GameObject:
   m_ObjectHideFlags: 0
