@@ -38,10 +38,14 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
-
         if (runner.ActivePlayers.Count() == 2)
             waitingScreen.SetActive(false);
+
+        if (runner.IsSharedModeMasterClient)
+            return;
+
+        runner.Spawn(clientPrefab, PongGameController.Instance.clientTransform.position, clientPrefab.transform.rotation, player);
+
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
