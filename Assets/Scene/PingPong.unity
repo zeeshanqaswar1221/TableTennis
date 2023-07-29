@@ -589,8 +589,8 @@ MonoBehaviour:
   clientPosition: {fileID: 577529016}
   masterBallPosition: {fileID: 1143602405}
   clientBallPosition: {fileID: 287100772}
-  masterPrefab: {fileID: 9019280568633809063, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
-  clientPrefab: {fileID: 9019280568633809063, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}
+  clientPedalPrefab: {fileID: 9019280568633809063, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}
+  MasterPedalPrefab: {fileID: 9019280568633809063, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
   ballPrefab: {fileID: 3596514861021706774, guid: 10dac1aa0ee21a74b96a1eb1f4630304, type: 3}
 --- !u!4 &382229196
 Transform:

@@ -4,13 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ball
-  - Paddle
+  - Bounds
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bounds
   - Water
   - UI
   - Paddle

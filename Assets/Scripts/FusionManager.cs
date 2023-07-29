@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using Tennis.Perspective;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
@@ -15,7 +16,10 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
     public GameObject waitingScreen;
 
     public Transform masterPosition, clientPosition, masterBallPosition, clientBallPosition;
-    public GameObject masterPrefab, clientPrefab,ballPrefab;
+    public GameObject clientPedalPrefab, MasterPedalPrefab ,ballPrefab;
+
+    public TennisMovement MasterPedal { get; set; }
+    public TennisMovement ClientPedal { get; set; }
 
     public static FusionManager Instance;
 
@@ -45,12 +49,12 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
                 return;
             }
 
-            Runner.Spawn(masterPrefab, masterPosition.position, Quaternion.identity, Runner.LocalPlayer);
-            Runner.Spawn(ballPrefab, masterBallPosition.position, Quaternion.identity);
+            MasterPedal = Runner.Spawn(MasterPedalPrefab, masterPosition.localPosition, Quaternion.identity, Runner.LocalPlayer).GetComponent<TennisMovement>();
+            Runner.Spawn(ballPrefab, masterBallPosition.localPosition, Quaternion.identity).GetComponent<Ball>();
         }
         else
         {
-            runner.Spawn(clientPrefab, clientPosition.position, clientPrefab.transform.rotation, player);
+            ClientPedal = runner.Spawn(clientPedalPrefab, clientPosition.localPosition, clientPedalPrefab.transform.rotation, player).GetComponent<TennisMovement>();
         }
     }
 
