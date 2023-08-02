@@ -14,10 +14,11 @@ namespace Tennis.Orthographic
         public DOTweenAnimation[] animations;
 
 
+        public LayerMask collisionLayer;
         public AudioSource BallHitSound { get; set; }
         private TrailRenderer trailRenderer;
 
-        private Rigidbody2D m_Rigidbody2d;
+        private NetworkTransform m_NetworkTransform;
         private bool canSwing = true;
         private Vector2 m_BallDirection;
 
@@ -33,8 +34,7 @@ namespace Tennis.Orthographic
 
         public override void Spawned()
         {
-            m_Rigidbody2d = GetComponent<Rigidbody2D>();
-
+            m_NetworkTransform = GetComponent<NetworkTransform>();
             _ballCollider = GetComponent<Collider2D>();
             BallHitSound = GetComponent<AudioSource>();
             trailRenderer = GetComponent<TrailRenderer>();
@@ -48,6 +48,7 @@ namespace Tennis.Orthographic
             if (!Object.HasStateAuthority)
                 return;
 
+            DetectCollisions();
             BallController();
         }
 
@@ -58,11 +59,23 @@ namespace Tennis.Orthographic
             {
                 transform.Translate(m_BallDirection * Runner.DeltaTime * ballSpeed);
             }
-            else
+        }
+
+        private List<LagCompensatedHit> _lagCompensatedHits = new List<LagCompensatedHit>();
+        public Collider2D GetCollider2d { get; set; }
+
+        private void DetectCollisions()
+        {
+            _lagCompensatedHits.Clear();
+
+            Vector2 overlapStartPosition = new Vector2(m_NetworkTransform.InterpolationTarget.position.x, m_NetworkTransform.InterpolationTarget.position.y);
+            var count = Runner.LagCompensation.OverlapSphere(overlapStartPosition, radius, Object.InputAuthority, _lagCompensatedHits, collisionLayer);
+            if (count > 0)
             {
-                //m_Rigidbody2d.MovePosition((Vector2)transform.position + m_BallDirection * Runner.DeltaTime * ballSpeed);
-                if (m_Rigidbody2d.velocity.magnitude > ballSpeed)
-                    m_Rigidbody2d.velocity = Vector3.ClampMagnitude(m_Rigidbody2d.velocity, ballSpeed);
+                if (_lagCompensatedHits[0].Hitbox.transform.parent.TryGetComponent(out TennisMovement pedal))
+                {
+                    SetVelocity(pedal);
+                }
             }
         }
 
@@ -74,21 +87,14 @@ namespace Tennis.Orthographic
 
             trackingObject = pedal;
 
-            if (!transformMovement)
-            {
-                m_Rigidbody2d.velocity = Vector2.zero;
-            }
+            m_BallDirection = Vector2.zero;
 
             float x = hitFactor(transform.position, pedal.transform.position, pedal.GetCollider2d.bounds.size.x);
             x = Mathf.Clamp(x, -0.5f, 0.5f);
 
             float y = pedal.ForwardDir * -1;
             m_BallDirection = new Vector2(x, y).normalized;
-
-            if (!transformMovement)
-            {
-                m_Rigidbody2d.velocity = m_BallDirection * ballSpeed;
-            }
+            m_BallDirection = m_BallDirection * ballSpeed;
 
             BallHitSound.Play();
         }
@@ -101,7 +107,6 @@ namespace Tennis.Orthographic
         public void Reset(Transform standingPosition = null)
         {
             m_BallDirection = Vector2.zero;
-            m_Rigidbody2d.velocity = Vector2.zero;
             trackingObject = default;
 
             if (standingPosition != null)

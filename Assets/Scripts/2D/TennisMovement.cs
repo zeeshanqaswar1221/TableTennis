@@ -24,9 +24,13 @@ namespace Tennis.Orthographic
         public Collider2D GetCollider2d { get; set; }
         private List<LagCompensatedHit> _lagCompensatedHits = new List<LagCompensatedHit>();
 
+        private NetworkTransform m_NetworkTransform;
+
         public override void Spawned()
         {
             Runner.AddCallbacks(this);
+
+            m_NetworkTransform = GetComponent<NetworkTransform>();  
 
             GetCollider2d = GetComponent<Collider2D>();
             ForwardDir =  (int)(transform.position.y / Mathf.Abs(transform.position.y));
@@ -36,11 +40,6 @@ namespace Tennis.Orthographic
 
         public override void FixedUpdateNetwork()
         {
-            if (!Object.HasStateAuthority)
-                return;
-
-                DetectCollisions();
-
             if (GetInput(out PaddleInput input))
             {
                 if (input.IsDragging)
@@ -71,29 +70,6 @@ namespace Tennis.Orthographic
         }
 
 
-        private void DetectCollisions()
-        {
-            _lagCompensatedHits.Clear();
-
-            Vector2 overlapStartPosition = new Vector2(transform.position.x, transform.position.y) + (GetCollider2d.offset * -1 * ForwardDir);
-            var count = Runner.LagCompensation.OverlapSphere(overlapStartPosition, collisionRadius, Object.InputAuthority, _lagCompensatedHits, collisionLayer);
-            if (count > 0)
-            {
-                if (_lagCompensatedHits[0].Hitbox.TryGetComponent(out Ball ball))
-                {
-                    if (Object.HasInputAuthority && Object.HasStateAuthority)
-                    {
-                        print("Master Hit The ball");
-                    }
-                    else
-                    {
-                        print("Client Hit The ball");
-                    }
-
-                    ball.SetVelocity(this);
-                }
-            }
-        }
 
         #region NETWORK CALLBACKS
 

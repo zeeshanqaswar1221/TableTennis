@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
-using Tennis.Perspective;
+using Tennis.Orthographic;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
