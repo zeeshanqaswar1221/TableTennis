@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 2173618}
   - component: {fileID: 2173617}
   - component: {fileID: 2173619}
+  - component: {fileID: 2173620}
   m_Layer: 0
   m_Name: Table Bounds (Client Side) (1)
   m_TagString: Untagged
@@ -169,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 1143602405}
 --- !u!61 &2173618
 BoxCollider2D:
@@ -183,7 +185,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: 0.73181915, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -194,7 +196,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 10.665577, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &2173619
 Rigidbody2D:
@@ -204,9 +206,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2173615}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -217,6 +219,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &2173620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2173615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 6c908f267a4744fb8a4665cf92cc4c80
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 2173617}
+  SimulationBehaviours: []
 --- !u!1 &17302784
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +371,7 @@ GameObject:
   - component: {fileID: 332595846}
   - component: {fileID: 332595845}
   - component: {fileID: 332595847}
+  - component: {fileID: 332595848}
   m_Layer: 0
   m_Name: Table Bounds (Master Side) (2)
   m_TagString: Untagged
@@ -379,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 287100772}
 --- !u!61 &332595846
 BoxCollider2D:
@@ -393,7 +421,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: -0.7143738, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -404,7 +432,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 10.61479, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &332595847
 Rigidbody2D:
@@ -414,9 +442,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332595843}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -427,6 +455,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &332595848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332595843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: f2d77535ac374fb994d00be74780ad3b
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 332595845}
+  SimulationBehaviours: []
 --- !u!1 &364650927
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +643,7 @@ MonoBehaviour:
   clientBallPosition: {fileID: 287100772}
   clientPedalPrefab: {fileID: 9019280568633809063, guid: e2d6539a72f2e2e4bbce826e00ad46f3, type: 3}
   MasterPedalPrefab: {fileID: 9019280568633809063, guid: 9f9a480c054f8034f81b1da761fe4479, type: 3}
-  ballPrefab: {fileID: 3596514861021706774, guid: 10dac1aa0ee21a74b96a1eb1f4630304, type: 3}
+  ballPrefab: {fileID: 2171167336862001536, guid: 46aabe964223e4247a384cfef5d2453a, type: 3}
 --- !u!4 &382229196
 Transform:
   m_ObjectHideFlags: 0
@@ -734,6 +786,7 @@ GameObject:
   - component: {fileID: 450857199}
   - component: {fileID: 450857198}
   - component: {fileID: 450857200}
+  - component: {fileID: 450857201}
   m_Layer: 0
   m_Name: Table Bounds (Master Side)
   m_TagString: Untagged
@@ -768,6 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 287100772}
 --- !u!61 &450857199
 BoxCollider2D:
@@ -782,7 +836,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: -0.13953495, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -793,7 +847,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 11.396568, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &450857200
 Rigidbody2D:
@@ -803,9 +857,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450857196}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -816,6 +870,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &450857201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450857196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 5c8eecd9bc1642f994a0ac8f28e18c4a
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 450857198}
+  SimulationBehaviours: []
 --- !u!1 &538097625
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +1021,7 @@ GameObject:
   - component: {fileID: 727031536}
   - component: {fileID: 727031535}
   - component: {fileID: 727031537}
+  - component: {fileID: 727031538}
   m_Layer: 0
   m_Name: Table Bounds (Client Side)
   m_TagString: Untagged
@@ -977,6 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 1143602405}
 --- !u!61 &727031536
 BoxCollider2D:
@@ -991,7 +1071,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: -0.09085941, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1002,7 +1082,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 11.271761, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &727031537
 Rigidbody2D:
@@ -1012,9 +1092,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727031533}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1025,6 +1105,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &727031538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727031533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 28770c24211342208e1a35b1d151f01f
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 727031535}
+  SimulationBehaviours: []
 --- !u!1 &754526789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1141,7 @@ GameObject:
   - component: {fileID: 754526792}
   - component: {fileID: 754526791}
   - component: {fileID: 754526793}
+  - component: {fileID: 754526794}
   m_Layer: 0
   m_Name: Table Bounds (Master Side) (1)
   m_TagString: Untagged
@@ -1071,6 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 287100772}
 --- !u!61 &754526792
 BoxCollider2D:
@@ -1085,7 +1191,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: -0.82983637, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1096,7 +1202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 10.659785, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &754526793
 Rigidbody2D:
@@ -1106,9 +1212,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754526789}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1119,6 +1225,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &754526794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754526789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 005c401f531e43fdb6605946e7229bf0
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 754526791}
+  SimulationBehaviours: []
 --- !u!1 &812445074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1422,7 @@ GameObject:
   - component: {fileID: 1016148674}
   - component: {fileID: 1016148673}
   - component: {fileID: 1016148675}
+  - component: {fileID: 1016148676}
   m_Layer: 0
   m_Name: Table Bounds (Client Side) (2)
   m_TagString: Untagged
@@ -1326,6 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1724d0362277164ab792ab31c87bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   standingPosition: {fileID: 1143602405}
 --- !u!61 &1016148674
 BoxCollider2D:
@@ -1340,7 +1472,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04756069, y: 0}
+  m_Offset: {x: 0.753469, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1351,7 +1483,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.224337, y: 1}
+  m_Size: {x: 10.622277, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &1016148675
 Rigidbody2D:
@@ -1361,9 +1493,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016148671}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1374,6 +1506,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &1016148676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016148671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 7ed3259fa4534c47a8c8f9212ac709d1
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1016148673}
+  SimulationBehaviours: []
 --- !u!1 &1017749976
 GameObject:
   m_ObjectHideFlags: 0

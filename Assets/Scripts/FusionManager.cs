@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 using Tennis.Orthographic;
+using FusionPong.Game;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
@@ -33,6 +34,8 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     }
 
+    BallController ball;
+
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (!Runner.IsServer)
@@ -49,12 +52,13 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
                 return;
             }
 
+            ball = Runner.Spawn(ballPrefab).GetComponent<BallController>();
             MasterPedal = Runner.Spawn(MasterPedalPrefab, masterPosition.localPosition, Quaternion.identity, Runner.LocalPlayer).GetComponent<TennisMovement>();
-            Runner.Spawn(ballPrefab, masterBallPosition.localPosition, Quaternion.identity).GetComponent<Ball>();
         }
         else
         {
             ClientPedal = runner.Spawn(clientPedalPrefab, clientPosition.localPosition, clientPedalPrefab.transform.rotation, player).GetComponent<TennisMovement>();
+            StartCoroutine(ball.StartBall(1f));
         }
     }
 

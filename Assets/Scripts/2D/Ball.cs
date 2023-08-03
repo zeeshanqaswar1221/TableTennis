@@ -18,13 +18,9 @@ namespace Tennis.Orthographic
         public AudioSource BallHitSound { get; set; }
         private TrailRenderer trailRenderer;
 
-        private NetworkTransform m_NetworkTransform;
-        private bool canSwing = true;
+        private NetworkRigidbody2D m_Rigidbody;
         private Vector2 m_BallDirection;
 
-
-        private Collider2D _hitCollider;
-        private Collider2D _ballCollider;
 
         [SerializeField] private SpriteRenderer[] ballVisuals;
 
@@ -34,45 +30,24 @@ namespace Tennis.Orthographic
 
         public override void Spawned()
         {
-            m_NetworkTransform = GetComponent<NetworkTransform>();
-            _ballCollider = GetComponent<Collider2D>();
+            m_Rigidbody = GetComponent<NetworkRigidbody2D>();
             BallHitSound = GetComponent<AudioSource>();
             trailRenderer = GetComponent<TrailRenderer>();
             trackingObject = default;
         }
 
-        public float radius = 0.6f;
-
         public override void FixedUpdateNetwork()
         {
-            if (!Object.HasStateAuthority)
-                return;
-
-            DetectCollisions();
-            BallController();
+            m_Rigidbody.Rigidbody.velocity = Vector2.ClampMagnitude(m_Rigidbody.ReadVelocity(), ballSpeed);
+            CheckCollision();
         }
 
-
-        private void BallController()
+        public void CheckCollision()
         {
-            if (transformMovement)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 0.6f, collisionLayer);
+            if (colliders.Length > 0)
             {
-                transform.Translate(m_BallDirection * Runner.DeltaTime * ballSpeed);
-            }
-        }
-
-        private List<LagCompensatedHit> _lagCompensatedHits = new List<LagCompensatedHit>();
-        public Collider2D GetCollider2d { get; set; }
-
-        private void DetectCollisions()
-        {
-            _lagCompensatedHits.Clear();
-
-            Vector2 overlapStartPosition = new Vector2(m_NetworkTransform.InterpolationTarget.position.x, m_NetworkTransform.InterpolationTarget.position.y);
-            var count = Runner.LagCompensation.OverlapSphere(overlapStartPosition, radius, Object.InputAuthority, _lagCompensatedHits, collisionLayer);
-            if (count > 0)
-            {
-                if (_lagCompensatedHits[0].Hitbox.transform.parent.TryGetComponent(out TennisMovement pedal))
+                if (colliders[0].gameObject.TryGetComponent<TennisMovement>(out TennisMovement pedal))
                 {
                     SetVelocity(pedal);
                 }
@@ -87,14 +62,11 @@ namespace Tennis.Orthographic
 
             trackingObject = pedal;
 
-            m_BallDirection = Vector2.zero;
-
             float x = hitFactor(transform.position, pedal.transform.position, pedal.GetCollider2d.bounds.size.x);
             x = Mathf.Clamp(x, -0.5f, 0.5f);
 
             float y = pedal.ForwardDir * -1;
-            m_BallDirection = new Vector2(x, y).normalized;
-            m_BallDirection = m_BallDirection * ballSpeed;
+            m_Rigidbody.Rigidbody.velocity = new Vector2(x, y).normalized * ballSpeed;
 
             BallHitSound.Play();
         }
@@ -106,21 +78,13 @@ namespace Tennis.Orthographic
 
         public void Reset(Transform standingPosition = null)
         {
-            m_BallDirection = Vector2.zero;
+            m_Rigidbody.Rigidbody.centerOfMass = Vector2.zero;
+            m_Rigidbody.Rigidbody.velocity = Vector2.zero;
+            m_Rigidbody.Rigidbody.angularVelocity = 0f;
+
             trackingObject = default;
 
-            if (standingPosition != null)
-            {
-                ToggleBallVisuals(false);
-                StartCoroutine(ResetPosition());
-            }
-
-            IEnumerator ResetPosition()
-            {
-                yield return new WaitForEndOfFrame();
-                transform.position = standingPosition.position;
-                ToggleBallVisuals(true);
-            }
+            m_Rigidbody.Rigidbody.MovePosition(standingPosition.position);
         }
 
         private void ToggleBallVisuals(bool status)

@@ -1,3 +1,5 @@
+using Fusion;
+using FusionPong.Game;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +7,7 @@ using UnityEngine;
 
 namespace Tennis.Orthographic
 {
-    public class GameBounds : MonoBehaviour
+    public class GameBounds : NetworkBehaviour
     {
         public Transform standingPosition;
 
@@ -17,6 +19,12 @@ namespace Tennis.Orthographic
                 {
                     ball.Reset(standingPosition);
                 }
+
+
+                //if (col.gameObject.TryGetComponent(out BallController bal))
+                //{
+                //    bal.ResetBall();
+                //}
             }
         }
     }

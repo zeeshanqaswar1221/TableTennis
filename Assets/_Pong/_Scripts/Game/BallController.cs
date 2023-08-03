@@ -11,9 +11,9 @@ namespace FusionPong.Game
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] SpriteRenderer _spriteRenderer;
         private const float Speed = 10f;
-        private const float MaxSpeed = 20f;
+        private const float MaxSpeed = 12f;
         private const float MinTime = 5f;
-        private const float MaxTime = 15f;
+        private const float MaxTime = 6f;
         
         private Vector2 _cachedVelocity;
         private float ballResetGameTime;
@@ -30,12 +30,13 @@ namespace FusionPong.Game
         {
             _spriteRenderer.enabled = false;
             _cachedVelocity = _rb.velocity;
+            print(_cachedVelocity);
             
             _rb.velocity = Vector2.zero;
             transform.position = Vector3.zero;
 
-            if (startDelay > 0f)
-                StartCoroutine(StartBall(startDelay));
+            //if (startDelay > 0f)
+            //    StartCoroutine(StartBall(startDelay));
 
             HasScored = false;
         }
@@ -52,8 +53,8 @@ namespace FusionPong.Game
             if (_rb.velocity == Vector2.zero) return;
             
             var vel = _rb.velocity.normalized;
-            if (Mathf.Abs(vel.x) < 0.25f)
-                vel.x = 0.25f * vel.x < 0 ? -1f : 1f;
+            //if (Mathf.Abs(vel.x) < 0.25f)
+            //    vel.x = 0.25f * vel.x < 0 ? -1f : 1f;
 
             _rb.velocity = vel * BallSpeed();
         }
@@ -68,18 +69,18 @@ namespace FusionPong.Game
             
             if (_cachedVelocity == Vector2.zero)
             {
-                var xVel = Random.Range(.2f, .8f);
+                var yVel = Random.Range(.2f, .8f);
                 if (Random.value > 0.5f)
-                    xVel *= -1f;
-    
-                _cachedVelocity = new Vector2(xVel, 0f);
+                    yVel *= -1f;
+
+                _cachedVelocity = new Vector2(0f, yVel);
             }
-                            
-            var yVel = Random.Range(.1f, .9f);
+
+            var xVel = Random.Range(.1f, .9f);
             if (Random.value > 0.5f)
-                yVel *= -1f;
-            
-            var startVel = new Vector2(_cachedVelocity.x, yVel);
+                xVel *= -1f;
+
+            var startVel = new Vector2(xVel, _cachedVelocity.y);
 
             _rb.velocity = startVel.normalized * BallSpeed();
         }

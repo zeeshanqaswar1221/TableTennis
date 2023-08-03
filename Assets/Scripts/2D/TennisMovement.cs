@@ -22,21 +22,17 @@ namespace Tennis.Orthographic
 
         public int ForwardDir { get; set; }
         public Collider2D GetCollider2d { get; set; }
-        private List<LagCompensatedHit> _lagCompensatedHits = new List<LagCompensatedHit>();
 
-        private NetworkTransform m_NetworkTransform;
+        private NetworkRigidbody2D m_NetworkRigibody;
 
         public override void Spawned()
         {
             Runner.AddCallbacks(this);
 
-            m_NetworkTransform = GetComponent<NetworkTransform>();  
-
+            m_NetworkRigibody = GetComponent<NetworkRigidbody2D>();  
             GetCollider2d = GetComponent<Collider2D>();
             ForwardDir =  (int)(transform.position.y / Mathf.Abs(transform.position.y));
         }
-
-
 
         public override void FixedUpdateNetwork()
         {
@@ -44,11 +40,10 @@ namespace Tennis.Orthographic
             {
                 if (input.IsDragging)
                 {
-                    transform.position = input.Movement;
+                    m_NetworkRigibody.Rigidbody.MovePosition(input.Movement);
                 }
             }
         }
-
 
         private void OnMouseDown()
         {
@@ -68,8 +63,6 @@ namespace Tennis.Orthographic
             m_InitalPos = Vector2.zero;
             dragging = false;
         }
-
-
 
         #region NETWORK CALLBACKS
 
