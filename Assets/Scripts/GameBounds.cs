@@ -15,16 +15,10 @@ namespace Tennis.Orthographic
         {
             if (standingPosition != null)
             {
-                if (col.gameObject.TryGetComponent(out Ball ball))
+                if (col.gameObject.TryGetComponent(out IReset ball))
                 {
-                    ball.Reset(standingPosition);
+                    ball.Reset(standingPosition.position);
                 }
-
-
-                //if (col.gameObject.TryGetComponent(out BallController bal))
-                //{
-                //    bal.ResetBall();
-                //}
             }
         }
     }

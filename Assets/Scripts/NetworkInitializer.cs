@@ -20,6 +20,7 @@ public class NetworkInitializer : MonoBehaviour
     
     private void Start()
     {
+        Application.targetFrameRate = 60;
         InitializeNetwork(GameMode.AutoHostOrClient, GAMESCENE);
     }
 

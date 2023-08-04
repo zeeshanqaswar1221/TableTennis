@@ -12,15 +12,11 @@ using FusionPong.Game;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public bool clientDebugMode;
     public static event Action<NetworkRunner, NetworkInput> OnInputCallBack;
     public GameObject waitingScreen;
 
     public Transform masterPosition, clientPosition, masterBallPosition, clientBallPosition;
     public GameObject clientPedalPrefab, MasterPedalPrefab ,ballPrefab;
-
-    public TennisMovement MasterPedal { get; set; }
-    public TennisMovement ClientPedal { get; set; }
 
     public static FusionManager Instance;
 
@@ -34,7 +30,7 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     }
 
-    BallController ball;
+    Ball ball;
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
@@ -46,19 +42,12 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 
         if (player == Runner.LocalPlayer)
         {
-            if (clientDebugMode)
-            {
-                Runner.Spawn(ballPrefab, clientBallPosition.position, Quaternion.identity);
-                return;
-            }
-
-            ball = Runner.Spawn(ballPrefab).GetComponent<BallController>();
-            MasterPedal = Runner.Spawn(MasterPedalPrefab, masterPosition.localPosition, Quaternion.identity, Runner.LocalPlayer).GetComponent<TennisMovement>();
+            ball = Runner.Spawn(ballPrefab, masterBallPosition.position, Quaternion.identity).GetBehaviour<Ball>();
+            ball.Pedal1 = Runner.Spawn(MasterPedalPrefab, masterPosition.position, Quaternion.identity, Runner.LocalPlayer).GetComponent<TennisMovement>();
         }
         else
         {
-            ClientPedal = runner.Spawn(clientPedalPrefab, clientPosition.localPosition, clientPedalPrefab.transform.rotation, player).GetComponent<TennisMovement>();
-            StartCoroutine(ball.StartBall(1f));
+            ball.Pedal2 = runner.Spawn(clientPedalPrefab, clientPosition.position, clientPedalPrefab.transform.rotation, player).GetComponent<TennisMovement>();
         }
     }
 

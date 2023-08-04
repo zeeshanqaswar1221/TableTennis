@@ -3,44 +3,47 @@ using UnityEngine;
 using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
-using UnityEngine.UIElements;
-using DG.Tweening;
 
 namespace Tennis.Orthographic
 {
     public class TennisMovement : NetworkBehaviour, INetworkRunnerCallbacks
     {
-        public SpriteRenderer interpolator;
+        public NetworkObject tennisGraphics;
+        public TennisGraphics Graphics { get; private set; }
+        public Vector3 GraphicsPos { get { return Graphics.transform.position; } }
 
-        public LayerMask collisionLayer;
-        public float collisionRadius;
-        public bool dragging = false;
+        private bool dragging = false;
         private Vector3 offset;
         private Vector3 m_InitalPos;
 
-        public Vector3 paddleDragDirection { get; set; }
-
+        private Collider2D m_Collider2D;
+        public float PedalWidth { get; private set; }
+        [Networked] public float SwipeSpeed { get; set; }
         public int ForwardDir { get; set; }
-        public Collider2D GetCollider2d { get; set; }
 
-        private NetworkRigidbody2D m_NetworkRigibody;
 
         public override void Spawned()
         {
             Runner.AddCallbacks(this);
 
-            m_NetworkRigibody = GetComponent<NetworkRigidbody2D>();  
-            GetCollider2d = GetComponent<Collider2D>();
-            ForwardDir =  (int)(transform.position.y / Mathf.Abs(transform.position.y));
-        }
+            m_Collider2D = GetComponent<Collider2D>();
+            PedalWidth = m_Collider2D.bounds.size.x;
 
+            ForwardDir =  (int)(transform.position.y / Mathf.Abs(transform.position.y));
+            if (Object.HasStateAuthority)
+            {
+                Graphics = Runner.Spawn(tennisGraphics, transform.position, tennisGraphics.transform.rotation).GetComponent<TennisGraphics>();
+                Graphics.TargetToFollow = Object;
+            }
+        }
+        
         public override void FixedUpdateNetwork()
         {
-            if (GetInput(out PaddleInput input))
+            if (GetInput(out CustomInputs input))
             {
                 if (input.IsDragging)
                 {
-                    m_NetworkRigibody.Rigidbody.MovePosition(input.Movement);
+                    transform.position = input.Movement;
                 }
             }
         }
@@ -50,9 +53,15 @@ namespace Tennis.Orthographic
             if (!Object.HasInputAuthority)
                 return;
 
+            SwipeSpeed = 0f;
             m_InitalPos = transform.position;
             offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             dragging = true;
+        }
+
+        private void OnMouseDrag()
+        {
+            SwipeSpeed = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")).magnitude;
         }
 
         private void OnMouseUp()
@@ -79,7 +88,7 @@ namespace Tennis.Orthographic
             if (!Object.HasInputAuthority)
                 return;
 
-            PaddleInput paddleInput = new PaddleInput();
+            CustomInputs paddleInput = new CustomInputs();
             paddleInput.IsDragging = dragging;
 
             Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
@@ -144,7 +153,7 @@ namespace Tennis.Orthographic
         #endregion
     }
 
-    public struct PaddleInput : INetworkInput
+    public struct CustomInputs : INetworkInput
     {
         public Vector2 Movement;
         public NetworkBool IsDragging;
