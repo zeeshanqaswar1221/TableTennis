@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 9019280568633809068}
   - component: {fileID: 5124047238542398287}
   - component: {fileID: 2964825781943174255}
-  - component: {fileID: -6930330651633741498}
+  - component: {fileID: 54480717349916792}
+  - component: {fileID: 5822771566417563464}
   m_Layer: 6
   m_Name: Master Input
   m_TagString: Paddle
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   tennisGraphics: {fileID: 2388540324588816307, guid: 3d44773311b9a144eb252de1cf006213, type: 3}
+  _SwipeSpeed: 0
 --- !u!114 &5124047238542398287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +74,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 9019280568633809068}
-  - {fileID: -6930330651633741498}
+  - {fileID: 5822771566417563464}
   SimulationBehaviours: []
 --- !u!58 &2964825781943174255
 CircleCollider2D:
@@ -90,7 +92,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.6}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &-6930330651633741498
+--- !u!50 &54480717349916792
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9019280568633809063}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &5822771566417563464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9019280568633809063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 3

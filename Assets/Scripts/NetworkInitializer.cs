@@ -15,7 +15,7 @@ public class NetworkInitializer : MonoBehaviour
     public NetworkSceneManagerBase NetworkSceneManager;
 
     private const int PLAYER_COUNT = 2;
-    private const string LOBBY_NAME = "PongTestLobby1";
+    private const string LOBBY_NAME = "PongTestLobby00";
     private const int GAMESCENE = 1;
     
     private void Start()

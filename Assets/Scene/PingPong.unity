@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 287100772}
+  standingPosition: {fileID: 1143602405}
 --- !u!61 &332595846
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 364650930}
   - component: {fileID: 364650929}
   - component: {fileID: 364650928}
+  - component: {fileID: 364650932}
   m_Layer: 5
   m_Name: UI Manager
   m_TagString: Untagged
@@ -579,6 +580,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &364650932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364650927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06246cb8c1489ea4591233a153f27d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RTT: {fileID: 0}
 --- !u!1 &382229193
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 287100772}
+  standingPosition: {fileID: 1143602405}
 --- !u!61 &450857199
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1007,7 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 287100772}
+  standingPosition: {fileID: 1143602405}
 --- !u!61 &754526792
 BoxCollider2D:
   m_ObjectHideFlags: 0

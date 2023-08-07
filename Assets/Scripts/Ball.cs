@@ -9,103 +9,72 @@ namespace Tennis.Orthographic
 {
     public class Ball : NetworkBehaviour, IReset
     {
+        //public TennisGraphics ballGraphics;
         public LayerMask collisionLayer;
 
-        private TennisMovement m_TrackingObject;
 
-        private float m_MaxSpeed = 14f;
-        private float m_MinSpeed = 14f;
-        private Vector2 m_BallDirection;
-        private float m_BoundDistance = 2.1f;
+        private Rigidbody2D m_Rigidbody2d;
 
-        public TennisMovement Pedal1 { get; set; }
-        public TennisMovement Pedal2 { get; set; }
         public AudioSource BallHitSound { get; set; }
-
 
         public override void Spawned()
         {
+            m_Rigidbody2d = GetComponent<Rigidbody2D>();
             BallHitSound = GetComponent<AudioSource>();
             m_TrackingObject = default;
+
         }
 
         public override void FixedUpdateNetwork()
         {
-            if (m_BallDirection != Vector2.zero)
-            {
-                transform.Translate(m_BallDirection * Runner.DeltaTime);
-            }
-
-            CheckCollision();
+            Vector2 curentVel = m_Rigidbody2d.velocity.normalized;
+            //curentVel.y = Mathf.Abs(curentVel.y);
+            m_Rigidbody2d.velocity = curentVel * 10f;
         }
 
-        private float CalculateBallSpeed()
+
+        private TennisMovement m_TrackingObject;
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            return m_TrackingObject.SwipeSpeed.Remap(0,1f, m_MinSpeed, m_MaxSpeed);
-        }
-
-        public void CheckCollision()
-        {
-            bool touchingPedal1 = Pedal1 == null ? false : Vector3.Distance(Pedal1.GraphicsPos, transform.position) < m_BoundDistance;
-            bool touchingPedal2 = Pedal2 == null? false: Vector3.Distance(Pedal2.GraphicsPos, transform.position) < m_BoundDistance;
-            float x = 0f;
-
-            if (!touchingPedal1 && !touchingPedal2)
-                return;
-
-            if (touchingPedal1)
+            if (collision.gameObject.TryGetComponent(out TennisMovement tMovement))
             {
-                print("Ball Collided with Master Pedal");
-                if (m_TrackingObject == Pedal1)
-                    return;
-                
-                m_TrackingObject = Pedal1;
-                x = hitFactor(transform.position, Pedal1.GraphicsPos, Pedal1.PedalWidth);
+                if (m_TrackingObject == tMovement)
+                {
+                    BallHitSound.Play();
+                    m_TrackingObject = tMovement;
+                }
             }
 
-            if (touchingPedal2)
-            {
-                print("Ball Collided with Master Pedal");
-                if (m_TrackingObject == Pedal2)
-                    return;
+            //if (collision.gameObject.TryGetComponent(out TennisMovement racket))
+            //{
+            //    if (m_TrackingObject != racket)
+            //    {
+            //        m_TrackingObject = racket;
+            //        float x = Mathf.Clamp(hitFactor(transform.position, racket.transform.position, collision.collider.bounds.size.x), -0.65f, 0.65f);
+            //        m_Rigidbody2d.velocity = new Vector2(x, racket.transform.position.normalized.y * -1f);
+            //        BallHitSound.Play();
+            //    }
+            //}
 
-                m_TrackingObject = Pedal2;
-                x = hitFactor(transform.position, Pedal2.GraphicsPos, Pedal2.PedalWidth);
-            }
-
-            if (m_TrackingObject != null)
-            {
-                x = Mathf.Clamp(x, -0.65f, 0.65f);
-                //print($"{m_TrackingObject.SwipeSpeed} {CalculateBallSpeed()}");
-                m_BallDirection = new Vector2(x, -m_TrackingObject.ForwardDir).normalized * CalculateBallSpeed();
-                BallHitSound.Play();
-            }
+            //float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketWidth)
+            //{
+            //    return (ballPos.x - racketPos.x) / racketWidth;
+            //}
         }
 
-        float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketWidth)
-        {
-            return (ballPos.x - racketPos.x) / racketWidth;
-        }
 
         public void Reset(Vector3 resetPos)
         {
+            m_Rigidbody2d.angularVelocity= 0f;
+            m_Rigidbody2d.velocity = Vector2.zero;
             m_TrackingObject = null;
-            m_BallDirection = Vector2.zero;
-            m_TrackingObject = default;
             transform.position = resetPos;
         }
 
     }
 
-    public static class ExtensionMethods
-    {
-
-        public static float Remap(this float value, float from1, float to1, float from2, float to2)
-        {
-            return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
-        }
-
-    }
+   
 }
 
 

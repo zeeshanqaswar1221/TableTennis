@@ -15,6 +15,7 @@ namespace Tennis.Orthographic
         private bool dragging = false;
         private Vector3 offset;
         private Vector3 m_InitalPos;
+        private Rigidbody2D m_Rigidbody2d;
 
         private Collider2D m_Collider2D;
         public float PedalWidth { get; private set; }
@@ -28,6 +29,7 @@ namespace Tennis.Orthographic
 
             m_Collider2D = GetComponent<Collider2D>();
             PedalWidth = m_Collider2D.bounds.size.x;
+            m_Rigidbody2d = GetComponent<Rigidbody2D>();
 
             ForwardDir =  (int)(transform.position.y / Mathf.Abs(transform.position.y));
             if (Object.HasStateAuthority)
@@ -43,7 +45,7 @@ namespace Tennis.Orthographic
             {
                 if (input.IsDragging)
                 {
-                    transform.position = input.Movement;
+                    m_Rigidbody2d.MovePosition(input.Movement);
                 }
             }
         }

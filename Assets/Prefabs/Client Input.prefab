@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 9019280568633809068}
   - component: {fileID: 384656515083673704}
   - component: {fileID: 866334240715060319}
-  - component: {fileID: -8374078813331819232}
+  - component: {fileID: 1137997826750588431}
+  - component: {fileID: 7982116418564455785}
   m_Layer: 6
   m_Name: Client Input
   m_TagString: Paddle
@@ -73,7 +74,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 9019280568633809068}
-  - {fileID: -8374078813331819232}
+  - {fileID: 7982116418564455785}
   SimulationBehaviours: []
 --- !u!58 &866334240715060319
 CircleCollider2D:
@@ -91,7 +92,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.6}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &-8374078813331819232
+--- !u!50 &1137997826750588431
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9019280568633809063}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &7982116418564455785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9019280568633809063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 3
