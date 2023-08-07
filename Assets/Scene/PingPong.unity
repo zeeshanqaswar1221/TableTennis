@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 1143602405}
+  standingPosition: {fileID: 287100772}
 --- !u!61 &332595846
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 1143602405}
+  standingPosition: {fileID: 287100772}
 --- !u!61 &450857199
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1021,7 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  standingPosition: {fileID: 1143602405}
+  standingPosition: {fileID: 287100772}
 --- !u!61 &754526792
 BoxCollider2D:
   m_ObjectHideFlags: 0
