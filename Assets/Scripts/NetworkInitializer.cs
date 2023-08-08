@@ -9,6 +9,7 @@ using Fusion.Sockets;
 
 public class NetworkInitializer : MonoBehaviour
 {
+    public bool debug;
     public GameObject networkRunnerPrefab;
     
     public NetworkRunner Runner;
@@ -21,7 +22,15 @@ public class NetworkInitializer : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        InitializeNetwork(GameMode.AutoHostOrClient, GAMESCENE);
+        if (debug)
+        {
+            InitializeNetwork(GameMode.AutoHostOrClient, GAMESCENE);
+        }
+    }
+
+    public void PlayGame(int sceneId)
+    {
+        InitializeNetwork(GameMode.AutoHostOrClient, sceneId);
     }
 
     private async Task<StartGameResult> InitializeNetwork(GameMode gameMode, SceneRef gameScene)

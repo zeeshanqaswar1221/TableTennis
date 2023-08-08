@@ -9,11 +9,8 @@ namespace Tennis.Orthographic
 {
     public class Ball : NetworkBehaviour, IReset
     {
-        public TennisGraphics ballGraphics;
         public LayerMask collisionLayer;
-
         float defaultSpeed = 10f;
-
 
         private Rigidbody2D m_Rigidbody2d;
 
@@ -24,21 +21,20 @@ namespace Tennis.Orthographic
             m_Rigidbody2d = GetComponent<Rigidbody2D>();
             BallHitSound = GetComponent<AudioSource>();
             m_TrackingObject = default;
-
-            if (Object.HasStateAuthority)
-                Runner.Spawn(ballGraphics, transform.position, Quaternion.identity).GetComponent<TennisGraphics>().TargetToFollow = Object;
         }
 
         public override void FixedUpdateNetwork()
         {
-            float speedMultiplier = m_Rigidbody2d.velocity.magnitude / 50f;
-            Vector2 curentVel = m_Rigidbody2d.velocity.normalized;
+            //float speedMultiplier = m_Rigidbody2d.velocity.magnitude / 50f;
+            //Vector2 curentVel = m_Rigidbody2d.velocity.normalized;
             //curentVel.y = Mathf.Abs(curentVel.y);
-            m_Rigidbody2d.velocity = curentVel * 10f;
+            //m_Rigidbody2d.velocity = curentVel * 10f;
+            m_Rigidbody2d.velocity = Vector2.ClampMagnitude(m_Rigidbody2d.velocity, 10f) ;
         }
 
 
         private TennisMovement m_TrackingObject;
+        private float startingPosition;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -47,6 +43,8 @@ namespace Tennis.Orthographic
                 if (m_TrackingObject == tMovement)
                 {
                     BallHitSound.Play();
+                    //startingPosition = transform.position.magnitude;
+                    //print($"Distance to Cover {}");
                     m_TrackingObject = tMovement;
                 }
             }

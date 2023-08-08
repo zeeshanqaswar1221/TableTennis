@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: aebf8b291bb637a429c347053f91ddb8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Chainwhacks
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c2dc5a0217a65e44c947e22370552506, type: 3}
+  - {fileID: 12800000, guid: ff036b372c9ec024abcefa0b6cea8502, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
