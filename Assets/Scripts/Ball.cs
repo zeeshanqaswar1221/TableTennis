@@ -9,8 +9,8 @@ namespace Tennis.Orthographic
 {
     public class Ball : NetworkBehaviour, IReset
     {
+        [SerializeField] private GameObject BallGraphics;
         public LayerMask collisionLayer;
-        float defaultSpeed = 10f;
 
         private Rigidbody2D m_Rigidbody2d;
 
@@ -25,10 +25,6 @@ namespace Tennis.Orthographic
 
         public override void FixedUpdateNetwork()
         {
-            //float speedMultiplier = m_Rigidbody2d.velocity.magnitude / 50f;
-            //Vector2 curentVel = m_Rigidbody2d.velocity.normalized;
-            //curentVel.y = Mathf.Abs(curentVel.y);
-            //m_Rigidbody2d.velocity = curentVel * 10f;
             m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
         }
 
@@ -87,12 +83,27 @@ namespace Tennis.Orthographic
 
         public void Reset(Vector3 resetPos)
         {
-            ballResetGameTime = Time.timeSinceLevelLoad;
-            m_Rigidbody2d.angularVelocity= 0f;
-            m_Rigidbody2d.velocity = Vector2.zero;
-            m_TrackingObject = null;
-            transform.position = resetPos;
+            StartCoroutine(ResetRoutine());
+
+            IEnumerator ResetRoutine()
+            {
+                transform.position = Vector3.one * 999f;
+                m_Rigidbody2d.angularVelocity = 0f;
+                BallGraphics.SetActive(false);
+
+                ballResetGameTime = Time.timeSinceLevelLoad;
+                m_Rigidbody2d.velocity = Vector2.zero;
+                m_TrackingObject = null;
+
+                transform.position = resetPos;
+                yield return new WaitForSeconds(0.5f);
+
+                BallGraphics.SetActive(true);
+            }
         }
+
+        
+
 
     }
 
