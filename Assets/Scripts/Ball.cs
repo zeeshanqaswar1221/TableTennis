@@ -1,15 +1,13 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections.Generic;
 using System.Collections;
-using DG.Tweening.Core;
 using Fusion;
 
 namespace Tennis.Orthographic
 {
     public class Ball : NetworkBehaviour, IReset
     {
-        [SerializeField] private GameObject BallGraphics;
+        [SerializeField] private GameObject[] BallGraphics;
         public LayerMask collisionLayer;
 
         private Rigidbody2D m_Rigidbody2d;
@@ -65,7 +63,7 @@ namespace Tennis.Orthographic
 
 
         private const float Speed = 10f;
-        private const float MaxSpeed = 12f;
+        private const float MaxSpeed = 17f;
         private const float MinTime = 5f;
         private const float MaxTime = 6f;
         private float ballResetGameTime;
@@ -89,7 +87,9 @@ namespace Tennis.Orthographic
             {
                 transform.position = Vector3.one * 999f;
                 m_Rigidbody2d.angularVelocity = 0f;
-                BallGraphics.SetActive(false);
+
+                foreach (var g in BallGraphics)
+                    g.SetActive(false);
 
                 ballResetGameTime = Time.timeSinceLevelLoad;
                 m_Rigidbody2d.velocity = Vector2.zero;
@@ -98,12 +98,10 @@ namespace Tennis.Orthographic
                 transform.position = resetPos;
                 yield return new WaitForSeconds(0.5f);
 
-                BallGraphics.SetActive(true);
+                foreach (var g in BallGraphics)
+                    g.SetActive(true);
             }
         }
-
-        
-
 
     }
 

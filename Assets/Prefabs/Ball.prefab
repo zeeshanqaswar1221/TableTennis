@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6957852860618888175}
   - component: {fileID: 5484855827426505400}
-  - component: {fileID: 1454415253139823946}
+  - component: {fileID: 4512929463423137711}
+  - component: {fileID: 2238924625769961177}
   m_Layer: 7
   m_Name: Graphics
   m_TagString: Untagged
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!96 &1454415253139823946
+--- !u!96 &4512929463423137711
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -193,6 +194,141 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &2238924625769961177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911858864494202756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 2
+  easeType: 37
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0025520325
+      value: 0.9958191
+      inSlope: 1.8131047
+      outSlope: 1.8131047
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.17803611
+    - serializedVersion: 3
+      time: 0.26387933
+      value: 1.368741
+      inSlope: 0.08648404
+      outSlope: 0.08648404
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39912918
+      outWeight: 0.53632396
+    - serializedVersion: 3
+      time: 0.45752108
+      value: 1.3719697
+      inSlope: 0.025284525
+      outSlope: 0.025284525
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.55911845
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7965881
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.086522296
+      outWeight: 0.20422609
+    - serializedVersion: 3
+      time: 0.99554443
+      value: 1
+      inSlope: 9.609046
+      outSlope: 9.609046
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07947104
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 1
+  loops: 1
+  id: 
+  isRelative: 0
+  isFrom: 1
+  isIndependentUpdate: 0
+  autoKill: 1
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 6957852860618888175}
+  animationType: 5
+  targetType: 11
+  forcedTargetType: 0
+  autoPlay: 1
+  useTargetAsV3: 0
+  endValueFloat: 0.2
+  endValueV3: {x: 0, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 1
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalShakeRandomnessMode: 0
+  optionalString: 
 --- !u!1 &1837512359585222553
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  BallGraphics: {fileID: 911858864494202756}
+  BallGraphics:
+  - {fileID: 911858864494202756}
+  - {fileID: 0}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
