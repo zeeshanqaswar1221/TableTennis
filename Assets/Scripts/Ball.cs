@@ -29,7 +29,7 @@ namespace Tennis.Orthographic
             //Vector2 curentVel = m_Rigidbody2d.velocity.normalized;
             //curentVel.y = Mathf.Abs(curentVel.y);
             //m_Rigidbody2d.velocity = curentVel * 10f;
-            m_Rigidbody2d.velocity = Vector2.ClampMagnitude(m_Rigidbody2d.velocity, 10f) ;
+            m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
         }
 
 
@@ -43,6 +43,7 @@ namespace Tennis.Orthographic
                 if (m_TrackingObject == tMovement)
                 {
                     BallHitSound.Play();
+                    ballResetGameTime = Time.timeSinceLevelLoad;
                     //startingPosition = transform.position.magnitude;
                     //print($"Distance to Cover {}");
                     m_TrackingObject = tMovement;
@@ -67,8 +68,26 @@ namespace Tennis.Orthographic
         }
 
 
+        private const float Speed = 10f;
+        private const float MaxSpeed = 12f;
+        private const float MinTime = 5f;
+        private const float MaxTime = 6f;
+        private float ballResetGameTime;
+
+        private float BallSpeed()
+        {
+            var time = Time.timeSinceLevelLoad - ballResetGameTime;
+            return time switch
+            {
+                < MinTime => Speed,
+                >= MaxTime => MaxSpeed,
+                _ => time.Remap(MinTime, MaxTime, Speed, MaxSpeed)
+            };
+        }
+
         public void Reset(Vector3 resetPos)
         {
+            ballResetGameTime = Time.timeSinceLevelLoad;
             m_Rigidbody2d.angularVelocity= 0f;
             m_Rigidbody2d.velocity = Vector2.zero;
             m_TrackingObject = null;

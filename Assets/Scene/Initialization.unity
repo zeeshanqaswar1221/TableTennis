@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e81619f1caf8a14b8d02b38b89166f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
   networkRunnerPrefab: {fileID: 3385469231931463524, guid: fa5140bb0d12f3b41b8655b93df2ee65, type: 3}
   Runner: {fileID: 0}
   NetworkSceneManager: {fileID: 0}
