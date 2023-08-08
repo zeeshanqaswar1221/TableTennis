@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 911858864494202756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6254409637517398432}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 898ae61e98152f34db9d9cf246d9e4d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38ce93370b4b41b42bfd6be774150c41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -240,8 +240,8 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 2
-  easeType: 37
+  duration: 0.3
+  easeType: 1
   easeCurve:
     serializedVersion: 2
     m_Curve:
@@ -255,17 +255,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.17803611
     - serializedVersion: 3
-      time: 0.26387933
-      value: 1.368741
-      inSlope: 0.08648404
-      outSlope: 0.08648404
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.39912918
-      outWeight: 0.53632396
-    - serializedVersion: 3
-      time: 0.45752108
-      value: 1.3719697
+      time: 0.3
+      value: 1.4
       inSlope: 0.025284525
       outSlope: 0.025284525
       tangentMode: 0
@@ -273,33 +264,33 @@ MonoBehaviour:
       inWeight: 0.55911845
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7965881
-      value: 0
+      time: 0.5
+      value: 1.4
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.086522296
-      outWeight: 0.20422609
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.99554443
-      value: 1
-      inSlope: 9.609046
-      outSlope: 9.609046
+      time: 0.9917358
+      value: 0.0089660585
+      inSlope: -4.349911
+      outSlope: -4.349911
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07947104
-      outWeight: 0
+      inWeight: 0.0734314
+      outWeight: 0.53632396
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   loopType: 1
-  loops: 1
+  loops: 2
   id: 
   isRelative: 0
-  isFrom: 1
+  isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -307,9 +298,9 @@ MonoBehaviour:
   animationType: 5
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
-  endValueFloat: 0.2
+  endValueFloat: 0.82
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
@@ -411,7 +402,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 882be27c13a4e76499332af0991094dd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -508,12 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  BallGraphics:
-  - {fileID: 911858864494202756}
-  - {fileID: 0}
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  BallGraphics: {fileID: 911858864494202756}
+  bounceAnimation: {fileID: 2238924625769961177}
 --- !u!114 &3528901565213405526
 MonoBehaviour:
   m_ObjectHideFlags: 0
