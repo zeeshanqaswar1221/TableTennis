@@ -115,7 +115,25 @@ namespace Tennis.Orthographic
                     if (!ballStarted)
                     {
                         ballStarted = true;
-                        StartCoroutine(StartBall(1f));
+
+                        ballResetGameTime = Time.timeSinceLevelLoad;
+
+                        if (_cachedVelocity == Vector2.zero)
+                        {
+                            var yVel = Random.Range(.2f, .8f);
+                            if (Random.value > 0.5f)
+                                yVel *= -1f;
+
+                            _cachedVelocity = new Vector2(0f, yVel);
+                        }
+
+                        var xVel = Random.Range(.1f, .9f);
+                        if (Random.value > 0.5f)
+                            xVel *= -1f;
+
+                        var startVel = new Vector2(xVel, _cachedVelocity.y);
+
+                        _rb.velocity = startVel.normalized * BallSpeed();
                     }
                 }
 
