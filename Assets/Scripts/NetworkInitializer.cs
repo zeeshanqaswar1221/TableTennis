@@ -9,7 +9,7 @@ using Fusion.Sockets;
 
 public class NetworkInitializer : MonoBehaviour
 {
-    public bool debug;
+    public bool isServer;
     public GameObject networkRunnerPrefab;
     
     public NetworkRunner Runner;
@@ -17,29 +17,29 @@ public class NetworkInitializer : MonoBehaviour
 
     private const int PLAYER_COUNT = 2;
     private const string LOBBY_NAME = "PongTestLobby00";
-    private const int GAMESCENE = 1;
+    private const int GAMESCENE = 2;
     
     private void Start()
     {
         Application.targetFrameRate = 60;
-        if (debug)
-        {
-            InitializeNetwork(GameMode.AutoHostOrClient, GAMESCENE);
-        }
+
+        if (isServer)
+            InitializeNetwork(GameMode.Server, GAMESCENE);
     }
 
     public void PlayGame(int sceneId)
     {
-        InitializeNetwork(GameMode.AutoHostOrClient, sceneId);
+        InitializeNetwork(GameMode.Client, sceneId);
     }
 
     private async Task<StartGameResult> InitializeNetwork(GameMode gameMode, SceneRef gameScene)
     {
+
         #region START RUNNER
+
         if (ReferenceEquals(Runner, null))
-        {
             Runner = Instantiate(networkRunnerPrefab, Vector3.zero, Quaternion.identity).GetComponent<NetworkRunner>();
-        }
+
         #endregion
 
         NetworkSceneManager = Runner.GetComponents(typeof(MonoBehaviour)).OfType<NetworkSceneManagerDefault>().FirstOrDefault();

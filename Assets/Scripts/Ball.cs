@@ -35,13 +35,6 @@ namespace Tennis.Orthographic
             //m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            //if (collision.gameObject.TryGetComponent(out TennisMovement tMovement))
-            //{
-            //    m_Rigidbody2d.velocity = new Vector2(0f, collision.transform.position.y); 
-            //}
-        }
 
         private TennisMovement m_TrackingObject;
         private float startingPosition;

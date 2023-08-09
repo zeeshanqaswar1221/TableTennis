@@ -25,9 +25,14 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
         Instance = this;
 
         if (Runner.IsServer)
+        {
             waitingScreen.SetActive(true);
+            Runner.Spawn(ballPrefab, masterBallPosition.position, Quaternion.identity).GetBehaviour<Ball>();
+        }
 
     }
+
+    public bool player1Spawned;
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
@@ -37,10 +42,10 @@ public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
         if (runner.ActivePlayers.Count() == 2)
             waitingScreen.SetActive(false);
 
-        if (player == Runner.LocalPlayer)
+        if (!player1Spawned)
         {
-            Runner.Spawn(ballPrefab, masterBallPosition.position, Quaternion.identity).GetBehaviour<Ball>();
-            Runner.Spawn(MasterPedalPrefab, masterPosition.position, Quaternion.identity, Runner.LocalPlayer).GetComponent<TennisMovement>();
+            player1Spawned = true;
+            Runner.Spawn(MasterPedalPrefab, masterPosition.position, Quaternion.identity, player).GetComponent<TennisMovement>();
         }
         else
         {

@@ -5,21 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class TestForce : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool isServer;
+
     void Start()
     {
-        Invoke("SceneLoadNew", 3f);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ball")
+        if (isServer)
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //collision.gameObject.GetComponent<Ball>().AddForceToBall(new Vector2(0, -30));
+            SceneLoadNew();
         }
-
-            
+        else
+        {
+            Invoke("SceneLoadNew", 1f);
+        }
     }
+   
 
     public void SceneLoadNew()
     {
