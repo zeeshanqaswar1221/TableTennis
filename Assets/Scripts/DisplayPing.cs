@@ -16,6 +16,6 @@ public class DisplayPing : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         if (Runner.IsForward && Runner.Simulation.Tick % 100 == 0)
-            text.text = $"Ping: {1000 * Runner.GetPlayerRtt(Runner.LocalPlayer):N0}ms";
+            text.text = $"Ping: {1000 * Runner.GetPlayerRtt(Runner.LocalPlayer):N0}ms     Type {Runner.CurrentConnectionType}";
     }
 }

@@ -15,7 +15,7 @@ public class ObjectCollisionHandler : MonoBehaviour
             Vector3 spawnPosition = collision.contacts[0].point; // Get the collision point
             GameObject spawnedObject = Instantiate(randomObjectPrefab, spawnPosition, Quaternion.identity);
 
-            Destroy(spawnedObject, 0.3f);
+            Destroy(spawnedObject, 0.2f);
 
             isCollided = true; // Set the flag to true to prevent immediate additional spawns
             StartCoroutine(ResetCollisionFlagAfterDelay());

@@ -9,7 +9,7 @@ namespace Tennis.Orthographic
     public class Ball : NetworkBehaviour, IReset
     {
         [SerializeField] private GameObject BallGraphics;
-        [SerializeField] private DOTweenAnimation bounceAnimation;
+        [SerializeField] private DOTweenAnimation bounceAnimation,shadowAnimation;
         private Collider2D m_Collider;
 
         private Rigidbody2D m_Rigidbody2d;
@@ -55,6 +55,7 @@ namespace Tennis.Orthographic
                 bounceCompleted = true;
                 BallHitSound.Play();
                 bounceAnimation.DORestart();
+                shadowAnimation.DORestart();
             }
         }
 
