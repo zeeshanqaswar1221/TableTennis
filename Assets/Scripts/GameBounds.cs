@@ -1,5 +1,4 @@
 using Fusion;
-using FusionPong.Game;
 using System;
 using System.Collections;
 using System.Collections.Generic;

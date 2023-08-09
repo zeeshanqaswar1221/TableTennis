@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bounds
+  - Ball
+  - Paddle
+  - FailTrigger
+  - Bounce
   layers:
   - Default
   - TransparentFX

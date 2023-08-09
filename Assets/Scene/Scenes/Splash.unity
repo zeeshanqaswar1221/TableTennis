@@ -693,6 +693,7 @@ MonoBehaviour:
   isFrom: 0
   isIndependentUpdate: 0
   autoKill: 1
+  autoGenerate: 1
   isActive: 1
   isValid: 1
   target: {fileID: 6682059234808863198}
@@ -714,10 +715,12 @@ MonoBehaviour:
     height: 0
   endValueTransform: {fileID: 0}
   optionalBool0: 0
+  optionalBool1: 0
   optionalFloat0: 0
   optionalInt0: 0
   optionalRotationMode: 0
   optionalScrambleMode: 0
+  optionalShakeRandomnessMode: 0
   optionalString: 
 --- !u!1 &6682059234975561622
 GameObject:

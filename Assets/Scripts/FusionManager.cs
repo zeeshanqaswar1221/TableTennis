@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 using Tennis.Orthographic;
-using FusionPong.Game;
 
 public class FusionManager : NetworkBehaviour, INetworkRunnerCallbacks
 {

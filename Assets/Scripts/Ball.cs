@@ -26,7 +26,13 @@ namespace Tennis.Orthographic
 
         public override void FixedUpdateNetwork()
         {
-            m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
+            if (Runner.IsForward)
+            {
+                m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
+            }
+
+
+            //m_Rigidbody2d.velocity = m_Rigidbody2d.velocity.normalized * BallSpeed();
         }
 
         private void OnCollisionStay2D(Collision2D collision)

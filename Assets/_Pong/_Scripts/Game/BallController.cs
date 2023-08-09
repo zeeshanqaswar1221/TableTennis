@@ -3,10 +3,10 @@ using Fusion;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace FusionPong.Game
+namespace Tennis.Orthographic
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class BallController : NetworkBehaviour
+    public class BallController : NetworkBehaviour,IReset
     {
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] SpriteRenderer _spriteRenderer;
@@ -17,8 +17,7 @@ namespace FusionPong.Game
         
         private Vector2 _cachedVelocity;
         private float ballResetGameTime;
-
-        public bool HasScored { get; set; } = false;
+        private bool ballStarted = false;
 
         public override void Spawned()
         {
@@ -30,17 +29,25 @@ namespace FusionPong.Game
         {
             _spriteRenderer.enabled = false;
             _cachedVelocity = _rb.velocity;
-            print(_cachedVelocity);
             
             _rb.velocity = Vector2.zero;
             transform.position = Vector3.zero;
+            _spriteRenderer.enabled = true;
 
             //if (startDelay > 0f)
             //    StartCoroutine(StartBall(startDelay));
-
-            HasScored = false;
         }
-    
+
+
+        public void ResetBall(Vector3 newPos)
+        {
+            _spriteRenderer.enabled = false;
+            _cachedVelocity = _rb.velocity;
+
+            _rb.velocity = Vector2.zero;
+            transform.position = newPos;
+        }
+
         public void HideBall()
         {
             _rb.velocity = Vector2.zero;
@@ -53,8 +60,8 @@ namespace FusionPong.Game
             if (_rb.velocity == Vector2.zero) return;
             
             var vel = _rb.velocity.normalized;
-            //if (Mathf.Abs(vel.x) < 0.25f)
-            //    vel.x = 0.25f * vel.x < 0 ? -1f : 1f;
+            if (Mathf.Abs(vel.x) < 0.25f)
+                vel.x = 0.25f * vel.x < 0 ? -1f : 1f;
 
             _rb.velocity = vel * BallSpeed();
         }
@@ -95,6 +102,35 @@ namespace FusionPong.Game
                 _ => time.Remap(MinTime, MaxTime, Speed, MaxSpeed)
             };
         }
+
+        #region CUSTOM FUNCTION
+
+        TennisMovement previousRacket = default;
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.TryGetComponent<TennisMovement>(out TennisMovement newRacket))
+            {
+                if (previousRacket != newRacket)
+                {
+                    if (!ballStarted)
+                    {
+                        ballStarted = true;
+                        StartCoroutine(StartBall(1f));
+                    }
+                }
+
+            }
+        }
+
+        public void Reset(Vector3 resetPos)
+        {
+            ballStarted = false;
+            HideBall();
+            ResetBall(resetPos);
+            _spriteRenderer.enabled = true;
+        }
+        #endregion
+
     }
 }
 
